@@ -1,0 +1,138 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+html{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background: #ffffff url("/ludi.jpg") center center/cover no-repeat;
+}
+
+#container{
+    margin: auto;
+    width: 80vw;
+    /* border: 1px solid lightcyan; */
+    /*  */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+header{
+    width: 100%;
+    background: #ffffff url("/ship.jpeg")  top no-repeat;
+    padding: 30px 50px;
+    color: whitesmoke;
+    text-shadow: 3px 3px 14px rgba(0, 0, 0, 1);
+}
+
+main{
+    min-height: 500px;
+    padding-top: 15px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.75);
+    /*  */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+footer{
+    width: 100%;
+    padding: 30px 10px;
+    padding-top : 30px;
+    font-size: 12px;
+    background-color: rgba(200, 200, 200, 0.75);
+}
+
+h1,h2,h3{
+    text-align: center;
+}
+
+a{
+    color: blue;    
+}
+
+header a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+header img{
+    top :50px;
+}
+
+button{
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+button.selected{
+    background-color: darkslategray;
+    color: aliceblue;
+}
+
+main input {
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid black;
+}
+
+main input:focus{
+    border: 1px solid rgb(99, 157, 249);
+    outline: 2px solid rgb(99, 157, 249);
+}
+
+#result_container{
+    border: 1px solid darkgray;
+    background-color: white;
+    min-width: 80%;
+}
+
+#result_container > h2{
+    padding: 10px;
+}
+
+
+.resultHeader, .card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.resultHeader{
+    padding: 75px 30px;
+    justify-content: space-evenly;
+    border-bottom: 1px solid lightgray;
+}
+
+.card{
+    padding: 20px 12px;
+}
+
+.card h3{
+    text-align: left;
+}
+
+.card:nth-child(odd){
+    background-color: rgb(220,220,220);
+}
+.card:nth-child(even){
+    background-color: white;
+}
+
+.right{
+    padding-left: 35px;
+}
+
+.right img{
+    max-width: 125px;
+}
+

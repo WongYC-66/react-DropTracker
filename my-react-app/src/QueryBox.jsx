@@ -17,7 +17,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
   }, [searchRequest])
 
   useEffect(() => {
-    if(input === "") return clearInput() // test
+    if (input === "") return clearInput() // test
     // update searchable Dropdown
     let data = JSON.parse(localStorage.getItem("data"));
     let value = input.toLowerCase()
@@ -52,7 +52,6 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
     })
     selected === 'Mobs' ? data = { type: 'Mobs', data: data } : data = { type: 'Items', data: data }
     setSearchDropDown(data)
-
   }, [input])
 
   const queryAndUpdate = (event) => {
@@ -98,7 +97,9 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
     // const id = event.target.value
     if (!data.data_item[id]) return alert("id not found") // end if not tound
 
-    let name = data.data_item[id].itemName
+    let name = data.data_item[id].itemName 
+    if(! name) name = data.data_item[id] //is Eqp.
+    
     let desc = data.data_item[id].itemDesc
     let dropTable = Object.entries(data.data_MB)
     dropTable = dropTable.filter(x => x[1].includes(id))
@@ -110,7 +111,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
         name: data.data_Mob[parseInt(x[0])]
       }
     })
-    // console.log({id, name, dropTable})
+    // console.log({ id, name, desc, dropTable })
     clearInput()
     updateQueryItemResult({ id, name, desc, dropTable })
   }
@@ -166,10 +167,10 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
       </div>
       <div id="searchBarContainer">
         <FaSearch id="search-icon" style={{ color: "rgb(109, 147, 255)" }} />
-        <input value={input} 
-          onChange={(e) => handleInputChange(e.target.value)} 
-          onKeyPress={() => queryAndUpdate(event)} 
-          placeholder="Search for a mob or item"/>
+        <input value={input}
+          onChange={(e) => handleInputChange(e.target.value)}
+          onKeyPress={() => queryAndUpdate(event)}
+          placeholder="Search for a mob or item" />
 
       </div>
       <PreviewBox data={searchDropDown} sendSearchRequest={sendSearchRequest} />

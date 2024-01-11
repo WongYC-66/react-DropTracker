@@ -9,7 +9,8 @@ function ResultContainer({ queryMob = {}, queryItem = {} }) {
   
   if (queryItem.name){
     hasResult = true;
-
+    
+    // format string
     if (queryItem.desc) {
       strArr = queryItem.desc.split("\\n")
     }

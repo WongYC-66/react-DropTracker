@@ -9,15 +9,54 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
   const [searchRequest, setSearchRequest] = useState({})
 
   useEffect(() => {
-    if(searchRequest.type === 'Mobs'){
+    if (searchRequest.type === 'Mobs') {
       queryMobs(searchRequest.id)
-    } else if(searchRequest.type === 'Items'){
+    } else if (searchRequest.type === 'Items') {
       queryItems(searchRequest.id)
     }
   }, [searchRequest])
 
+  useEffect(() => {
+    if(input === "") return clearInput() // test
+    // update searchable Dropdown
+    let data = JSON.parse(localStorage.getItem("data"));
+    let value = input.toLowerCase()
+    switch (selected) {
+      case "Mobs":
+        let mobIdList = Object.keys(data.data_MB)
+        data = mobIdList.map(x => [x, data.data_Mob[x]]) // ['100100', 'Snail']
+        break;
+
+      case "Items":
+        let dropItemsList = Object.values(data.data_MB)
+        let dropItemSet = new Set()
+        dropItemsList.forEach(x => {
+          x.forEach(y => dropItemSet.add(y)) // add all Item from MonsterBook, each as unique to Set
+        })
+
+        let dropIdNameArr = [...dropItemSet].map(x => [x, data.data_item[x]])
+          .filter(x => x[0] != undefined && x[1] != undefined)  // data cleansing
+
+        data = dropIdNameArr.map(x => {
+          // data reformatting into array, without jv Object // ['"2000004"', 'Elixir']
+          return x[1].itemName
+            ? [x[0], x[1].itemName]
+            : [x[0], x[1]]
+        })
+        break;
+    }
+
+    data = data.filter(x => {
+      //x[0] = id, x[1] = name
+      return x[0].toLowerCase().includes(value) || x[1].toLowerCase().includes(value) // match Data to UserInput
+    })
+    selected === 'Mobs' ? data = { type: 'Mobs', data: data } : data = { type: 'Items', data: data }
+    setSearchDropDown(data)
+
+  }, [input])
+
   const queryAndUpdate = (event) => {
-    
+
     if (event.key !== "Enter") return; // only trigger when Enter event
     if (selected === "Mobs") return queryMobs(event.target.value);
     if (selected === "Items") return queryItems(event.target.value);
@@ -95,6 +134,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
 
   const handleInputChange = (value) => {
     setInput(value)
+    return;
     // update searchable Dropdown
     let data = JSON.parse(localStorage.getItem("data"));
     value = value.toLowerCase()
@@ -127,7 +167,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
       //x[0] = id, x[1] = name
       return x[0].toLowerCase().includes(value) || x[1].toLowerCase().includes(value) // match Data to UserInput
     })
-    selected === 'Mobs' ? data = {type : 'Mobs' , data: data} : data = {type : 'Items', data: data}
+    selected === 'Mobs' ? data = { type: 'Mobs', data: data } : data = { type: 'Items', data: data }
     setSearchDropDown(data)
   }
 
@@ -138,7 +178,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
 
   const clearInput = () => {
     let x = document.querySelector("select")
-    if(x) x.style.visibility = "hidden"
+    if (x) x.style.visibility = "hidden"
     setInput("")
     setSearchDropDown([])
     // console.log("clearing input")
@@ -162,10 +202,13 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
       </div>
       <div id="searchBarContainer">
         <FaSearch id="search-icon" style={{ color: "rgb(109, 147, 255)" }} />
-        <input value={input} onChange={(e) => handleInputChange(e.target.value)} onKeyPress={() => queryAndUpdate(event)} placeholder="Search for a mob or item"></input>
+        <input value={input} 
+          onChange={(e) => handleInputChange(e.target.value)} 
+          onKeyPress={() => queryAndUpdate(event)} 
+          placeholder="Search for a mob or item"/>
 
       </div>
-      <PreviewBox data={searchDropDown} sendSearchRequest={sendSearchRequest}/>
+      <PreviewBox data={searchDropDown} sendSearchRequest={sendSearchRequest} />
     </>
   )
 }

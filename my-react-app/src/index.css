@@ -136,11 +136,17 @@ main input:focus {
     color: rgba(0, 0, 0, 0.75);
     visibility: visible;
 }
-option.previewItem, select.previewGroup{
+
+option.previewItem,
+select.previewGroup {
+    word-wrap: normal;
     padding: 12px;
+    white-space: pre-wrap;
+    border-bottom: 1px solid #DDD;
 }
 
-.previewItem:hover, select.oneOptionOnly{
+.previewItem:hover,
+select.oneOptionOnly {
     background-color: rgba(99, 157, 249, 0.7);
 }
 
@@ -169,7 +175,7 @@ option.previewItem, select.previewGroup{
     max-height: 200px;
 }
 
-.resultHeader img{
+.resultHeader img {
     max-width: 150px;
 }
 

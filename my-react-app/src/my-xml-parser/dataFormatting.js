@@ -1,6 +1,7 @@
 import util from 'util'
+import { parseItemJSON } from './utility.js';
 
-const legacyTextCheck = (str) => {
+export function legacyTextCheck(str){
     // check for '
     str = str.replaceAll("&apos;", "'")
     
@@ -54,19 +55,10 @@ export function ConsumeItemIdDataFormatting(obj) {
 
     arrayData.forEach(x => {
         let itemId = x.attributes.name
-        let itemName = x.children[0].attributes.value
-        itemName = legacyTextCheck(itemName)
-
-        let itemDesc = ''
-        try {
-            itemDesc = x.children[1].attributes.value
-            itemDesc = legacyTextCheck(itemDesc)
-        } catch {
-            itemDesc = ''
-        }
 
         //write to main
-        simpleData[itemId] = { itemName: itemName, itemDesc: itemDesc }
+        let resultObj = parseItemJSON(x)
+        simpleData[itemId] = resultObj
     })
     return simpleData
 }
@@ -79,19 +71,10 @@ export function EtcItemIdDataFormatting(obj) {
     const arrayData = obj.root.children[0].children
     arrayData.forEach(x => {
         let itemId = x.attributes.name
-        let itemName = x.children[0].attributes.value
-        itemName = legacyTextCheck(itemName)
-
-        let itemDesc = ''
-        try {
-            itemDesc = x.children[1].attributes.value
-            itemDesc = legacyTextCheck(itemDesc)
-        } catch {
-            itemDesc = ''
-        }
 
         //write to main
-        simpleData[itemId] = { itemName: itemName, itemDesc: itemDesc }
+        let resultObj = parseItemJSON(x)
+        simpleData[itemId] = resultObj
     })
     return simpleData
 }
@@ -119,23 +102,15 @@ export function InsItemIdDataFormatting(obj) {
     // for Ins.img.xml ONLY
     // Create better data-structure
     const simpleData = {}
-    const arrayData = obj.root.children
 
+    const arrayData = obj.root.children
+    // console.log(arrayData)
     arrayData.forEach(x => {
         let itemId = x.attributes.name
-        let itemName = x.children[0].attributes.value
-        itemName = legacyTextCheck(itemName)
-
-        let itemDesc = ''
-        try {
-            itemDesc = x.children[1].attributes.value
-            itemDesc = legacyTextCheck(itemDesc)
-        } catch {
-            itemDesc = ''
-        }
 
         //write to main
-        simpleData[itemId] = { itemName: itemName, itemDesc: itemDesc }
+        let resultObj = parseItemJSON(x)
+        simpleData[itemId] = resultObj
     })
     return simpleData
 }

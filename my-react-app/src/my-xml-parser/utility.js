@@ -3,6 +3,8 @@ import util from 'util'
 
 // import * as parse from 'xml-parser';
 import parse from 'xml-parser'
+import { legacyTextCheck } from './dataFormatting.js'
+
 
 export function diskWriter(path, simpleData) {
     try {
@@ -25,6 +27,35 @@ export async function parseXML(FilePath) {
     return obj
 }
 
+export function parseItemJSON(x){
+        let property1
+        let property1Value 
+        let property2
+        let property2Value 
+
+        // console.log(x)
+        try{
+            property1 = x.children[0].attributes.name
+            property1Value = x.children[0].attributes.value
+            property1Value = legacyTextCheck(property1Value)
+        } catch {
+            property1Value = ''
+        }
+
+        try{
+            property2 = x.children[1].attributes.name
+            property2Value = x.children[1].attributes.value
+            property2Value = legacyTextCheck(property2Value)
+        } catch {
+            property2Value = ''
+        }
+        // console.log({property1, property1Value, property2, property2Value})
+        let newObj = {}
+        newObj[property1] = property1Value
+        newObj[property2] = property2Value
+
+        return newObj // {"name":"Red Potion","desc":"A potion made out of red herbs.\\nRecovers 50 HP."}
+}
 
 // module.exports = {
 //     diskWriter,

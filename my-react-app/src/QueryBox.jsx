@@ -34,25 +34,25 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
           x.forEach(y => dropItemSet.add(y)) // add all Item from MonsterBook, each as unique to Set
         })
 
-        let dropIdNameArr = [...dropItemSet].map(x => [x, data.data_item[x]])
-          .filter(x => x[0] != undefined && x[1] != undefined)  // data cleansing
+        let dropIdNameArr = [...dropItemSet].map(x => [x, data.data_item[x]]) // each unique item : ["4000019", {name: "xxx" , desc: "xxx"}]}
+        .filter(x => x[0] != undefined && x[1] != undefined)  // data cleansing (MUST), undefined in raw data
 
         data = dropIdNameArr.map(x => {
           // data reformatting into array, without jv Object // ['"2000004"', 'Elixir']
-          return x[1].itemName
-            ? [x[0], x[1].itemName]
-            : [x[0], x[1]]
+          // console.log(x)
+          return x[1].name ?
+            [x[0], x[1].name] : // for consume/etc/Ins
+            [x[0], x[1]]        // for Eqp
         })
         break;
     }
-
     data = data.filter(x => {
       //x[0] = id, x[1] = name
       return x[0].toLowerCase().includes(value) || x[1].toLowerCase().includes(value) // match Data to UserInput
     })
     selected === 'Mobs' ? data = { type: 'Mobs', data: data } : data = { type: 'Items', data: data }
-    setSearchDropDown(data)
-  }, [input])
+    setSearchDropDown(data) // update searchable dropdown
+  }, [input]) 
 
   const queryAndUpdate = (event) => {
     if (event.key !== "Enter") return; // only trigger when Enter event
@@ -63,8 +63,8 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
   }
 
   const queryMobs = (id) => {
+    // from Mob Id, find the item it drops
     const data = JSON.parse(localStorage.getItem("data"));
-    // const id = event.target.value
     if (!data.data_Mob[id]) return alert("id not found") // end if not tound
 
     let name = data.data_Mob[id]
@@ -83,8 +83,8 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
         // item is Use/Consume/Etc with desciption
         return {
           id: x,
-          name: result.itemName,
-          desc: result.itemDesc
+          name: result.item,
+          desc: result.desc
         }
       }
 
@@ -94,14 +94,14 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
   }
 
   const queryItems = (id) => {
+    // from Item Id, find the mob that drops it
     const data = JSON.parse(localStorage.getItem("data"));
-    // const id = event.target.value
     if (!data.data_item[id]) return alert("id not found") // end if not tound
 
-    let name = data.data_item[id].itemName 
-    if(! name) name = data.data_item[id] //is Eqp.
-    
-    let desc = data.data_item[id].itemDesc
+    let name = data.data_item[id].name   // is Consume/Etc/Ins
+    if (!name) name = data.data_item[id] // is Eqp.
+
+    let desc = data.data_item[id].desc
     let dropTable = Object.entries(data.data_MB)
     dropTable = dropTable.filter(x => x[1].includes(id))
 
@@ -137,7 +137,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
   }
 
   const sendSearchRequest = (data) => {
-    console.log(data)
+    // console.log(data)
     setSearchRequest(data)  // {type: data.type , id : x[0]}
     clearInput()
   }

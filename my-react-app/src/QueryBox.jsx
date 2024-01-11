@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaDiceThree } from "react-icons/fa";
 import PreviewBox from './PreviewBox.jsx'
 
 function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
@@ -117,6 +117,33 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
     updateQueryItemResult({ id, name, desc, dropTable })
   }
 
+  const randomSearch = () => {
+    // for fun :)
+    // console.log('random search')
+    const data = JSON.parse(localStorage.getItem("data"));
+    let randomId = 0
+    if(selected === "Mobs"){
+      randomId = [...Object.keys(data.data_MB)].sort(() => Math.random() - 0.5).pop()
+
+    } else if(selected === "Items") {
+      let dropItemsList = Object.values(data.data_MB)
+      let dropItemSet = new Set()
+      dropItemsList.forEach(x => {
+        x.forEach(y => dropItemSet.add(y)) // add all Item from MonsterBook, each as unique to Set
+      })
+
+      let validItemIdList = [...dropItemSet].map(x => [x, data.data_item[x]]) // each unique item : ["4000019", {name: "xxx" , desc: "xxx"}]}
+      .filter(x => x[0] != undefined && x[1] != undefined)  // data cleansing (MUST), undefined in raw data
+      .map(x => x[0])
+
+      randomId = validItemIdList.sort(() => Math.random() - 0.5).pop()
+    }
+    
+    // console.log(randomId)
+    selected === "Mobs" ? queryMobs(randomId)
+      : selected === "Items" ? queryItems(randomId)
+      : null 
+  }
   const toggleSelected = (option) => {
     switch (option) {
       case 0:
@@ -167,12 +194,11 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
         }
       </div>
       <div id="searchBarContainer">
-        <FaSearch id="search-icon" style={{ color: "rgb(109, 147, 255)" }} />
+        <FaSearch id="search-icon" style={{ color: "rgb(109, 147, 255)" }}  onClick={() => randomSearch()}/>
         <input value={input}
           onChange={(e) => handleInputChange(e.target.value)}
           onKeyPress={() => queryAndUpdate(event)}
           placeholder="Search for a mob or item" />
-
       </div>
       <PreviewBox data={searchDropDown} sendSearchRequest={sendSearchRequest} />
     </>

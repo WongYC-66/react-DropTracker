@@ -72,6 +72,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
     dropTable = dropTable.map(x => {
       // console.log(x)
       let result = data.data_item[parseInt(x)]
+      console.log(result)
       if (typeof result === "string") {
         // item isEqp, without description
         return {
@@ -83,7 +84,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
         // item is Use/Consume/Etc with desciption
         return {
           id: x,
-          name: result.item,
+          name: result.name,
           desc: result.desc
         }
       }

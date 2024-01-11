@@ -15,7 +15,7 @@ function ResultContainer({ queryMob = {}, queryItem = {} }) {
       strArr = queryItem.desc.split("\\n")
     }
   }
-  // console.log(queryMob)
+  console.log(queryMob)
   // console.log(queryItem)
 
 

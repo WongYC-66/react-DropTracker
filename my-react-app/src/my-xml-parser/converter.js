@@ -13,6 +13,7 @@ import { MBdataFormatting,
     ConsumeItemIdDataFormatting,
     EtcItemIdDataFormatting,
     EqpItemIdDataFormatting,
+    InsItemIdDataFormatting,
 } from './dataFormatting.js';
 
 async function MB() {
@@ -45,12 +46,19 @@ async function Eqp() {
     diskWriter(path.join(__dirname, "../../data/", 'data_Eqp.json'), simpleData)
 }
 
+async function Ins() {
+    const obj = await parseXML(path.join(__dirname, "../../data/", 'Ins.img.xml'))
+    const simpleData = InsItemIdDataFormatting(obj)
+    diskWriter(path.join(__dirname, "../../data/", 'data_Ins.json'), simpleData)
+}
+
 function main() {
     MB()
     Mob()
     Consume()
     Etc()
     Eqp()
+    Ins()
 }
 
 main()

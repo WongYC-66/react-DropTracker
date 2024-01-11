@@ -1,7 +1,12 @@
 import util from 'util'
 
 const legacyTextCheck = (str) => {
+    // check for '
     str = str.replaceAll("&apos;", "'")
+    
+    // check for #c
+    str = str.replaceAll(/#c(.+)#/g, "<b>$1</b>")
+
     return str
 }
 
@@ -50,9 +55,12 @@ export function ConsumeItemIdDataFormatting(obj) {
     arrayData.forEach(x => {
         let itemId = x.attributes.name
         let itemName = x.children[0].attributes.value
+        itemName = legacyTextCheck(itemName)
+
         let itemDesc = ''
         try {
             itemDesc = x.children[1].attributes.value
+            itemDesc = legacyTextCheck(itemDesc)
         } catch {
             itemDesc = ''
         }
@@ -72,9 +80,12 @@ export function EtcItemIdDataFormatting(obj) {
     arrayData.forEach(x => {
         let itemId = x.attributes.name
         let itemName = x.children[0].attributes.value
+        itemName = legacyTextCheck(itemName)
+
         let itemDesc = ''
         try {
             itemDesc = x.children[1].attributes.value
+            itemDesc = legacyTextCheck(itemDesc)
         } catch {
             itemDesc = ''
         }
@@ -94,13 +105,38 @@ export function EqpItemIdDataFormatting(obj) {
         categoryArr.children.forEach(x => {
             let itemId = x.attributes.name
             let itemName = x.children[0].attributes.value
-
+            itemName = legacyTextCheck(itemName)
             //write to main
             simpleData[itemId] = itemName
         })
     })
 
     // console.log(simpleData)
+    return simpleData
+}
+
+export function InsItemIdDataFormatting(obj) {
+    // for Ins.img.xml ONLY
+    // Create better data-structure
+    const simpleData = {}
+    const arrayData = obj.root.children
+
+    arrayData.forEach(x => {
+        let itemId = x.attributes.name
+        let itemName = x.children[0].attributes.value
+        itemName = legacyTextCheck(itemName)
+
+        let itemDesc = ''
+        try {
+            itemDesc = x.children[1].attributes.value
+            itemDesc = legacyTextCheck(itemDesc)
+        } catch {
+            itemDesc = ''
+        }
+
+        //write to main
+        simpleData[itemId] = { itemName: itemName, itemDesc: itemDesc }
+    })
     return simpleData
 }
 

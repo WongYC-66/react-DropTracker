@@ -1,5 +1,10 @@
 import util from 'util'
 
+const legacyTextCheck = (str) => {
+    str = str.replaceAll("&apos;", "'")
+    return str
+}
+
 export function MBdataFormatting(obj) {
     // for MonsterBook.img.xml ONLY
     // Create better data-structure
@@ -27,7 +32,7 @@ export function MobIdDataFormatting(obj) {
     arrayData.forEach(x => {
         let mobId = x.attributes.name
         let mobName = x.children[0].attributes.value
-
+        mobName = legacyTextCheck(mobName)
         //write to main
         simpleData[mobId] = mobName
     })

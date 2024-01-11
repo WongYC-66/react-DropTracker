@@ -7,6 +7,8 @@ import parse from 'xml-parser'
 export function diskWriter(path, simpleData) {
     try {
         fs.writeFileSync(path, JSON.stringify(simpleData));
+        console.log("Writing" + path)
+
         // file written successfully
     } catch (err) {
         console.error(err);
@@ -14,8 +16,8 @@ export function diskWriter(path, simpleData) {
 }
 
 export async function parseXML(FilePath) {
+    console.log("Reading" + FilePath)
     // read and parsing xml file from e.g. MonsterBook.img.xml 
-    // var parse = require('xml-parser');
     var xml = fs.readFileSync(FilePath, 'utf8');
     var inspect = util.inspect;
     var obj = parse(xml);

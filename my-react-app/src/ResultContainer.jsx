@@ -37,7 +37,7 @@ function ResultContainer({ queryMob = {}, queryItem = {} }) {
             <div className="resultHeader">
               <div>
                 <h1>{queryItem.name}</h1>
-                { strArr.map( (x, i) => <p key = {i}>{x}</p>) }
+                { strArr.map( (x, i) => <p key = {i} dangerouslySetInnerHTML={{ __html: x }}></p>) }
               </div>
               <img src={`https://maplestory.io/api/SEA/198/item/${parseInt(queryItem.id)}/icon?resize=1.5`} alt="No image found"></img>
             </div>

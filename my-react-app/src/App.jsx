@@ -10,6 +10,7 @@ import data_Mob from '../data/data_Mob.json'
 import data_Consume from '../data/data_Consume.json'
 import data_Eqp from '../data/data_Eqp.json'
 import data_Etc from '../data/data_Etc.json'
+import data_Ins from '../data/data_Ins.json'
 
 function App() {
   
@@ -18,7 +19,7 @@ function App() {
 
   useEffect(() => {
     // const data = {data_MB, data_Mob, data_Consume, data_Eqp, data_Etc }
-    const data_item = {...data_Consume, ...data_Eqp, ...data_Etc}
+    const data_item = {...data_Consume, ...data_Eqp, ...data_Etc, ...data_Ins}
     const data = {data_MB, data_Mob, data_item}
 
     localStorage.setItem("data", JSON.stringify(data));

@@ -119,7 +119,7 @@ main input:focus {
 
 .previewGroup {
     width: 238px;
-    max-height: 250px;
+    max-height: 350px;
     margin-left: 22px;
     position: absolute;
     top: 100px;
@@ -136,11 +136,11 @@ main input:focus {
     color: rgba(0, 0, 0, 0.75);
     visibility: visible;
 }
-option.previewItem{
+option.previewItem, select.previewGroup{
     padding: 12px;
 }
 
-.previewItem:hover{
+.previewItem:hover, select.oneOptionOnly{
     background-color: rgba(99, 157, 249, 0.7);
 }
 
@@ -166,6 +166,11 @@ option.previewItem{
     padding: 75px 30px;
     justify-content: space-evenly;
     border-bottom: 1px solid lightgray;
+    max-height: 200px;
+}
+
+.resultHeader img{
+    max-width: 150px;
 }
 
 .card {

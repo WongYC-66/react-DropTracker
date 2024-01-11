@@ -24,7 +24,7 @@ function ResultContainer({ queryMob = {}, queryItem = {} }) {
         <>
           <div className="resultHeader">
             <h1>{queryMob.name}</h1>
-            <img src={`https://maplestory.io/api/GMS/213/mob/${queryMob.id}/render/stand`} alt="No image found"></img>
+            <img src={`https://maplestory.io/api/SEA/198/mob/${queryMob.id}/render/stand`} alt="No image found"></img>
           </div>
           <h2> Items That This Mob Drops: </h2>
           <div>
@@ -38,7 +38,7 @@ function ResultContainer({ queryMob = {}, queryItem = {} }) {
                 <h1>{queryItem.name}</h1>
                 { strArr.map( (x, i) => <p key = {i}>{x}</p>) }
               </div>
-              <img src={`https://maplestory.io/api/GMS/213/item/${parseInt(queryItem.id)}/icon?resize=1.5`} alt="No image found"></img>
+              <img src={`https://maplestory.io/api/SEA/198/item/${parseInt(queryItem.id)}/icon?resize=1.5`} alt="No image found"></img>
             </div>
             <h2> Mobs That Drop This Item: </h2>
             <div>

@@ -1,17 +1,18 @@
-*{
+* {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
 }
-html{
+
+html {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
+body {
     background: #ffffff url("/ludi.jpg") center center/cover no-repeat;
 }
 
-#container{
+#container {
     margin: auto;
     width: 80vw;
     /* border: 1px solid lightcyan; */
@@ -20,18 +21,18 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
 }
 
-header{
+header {
     width: 100%;
-    background: #ffffff url("/ship.jpeg")  top no-repeat;
+    background: #ffffff url("/ship.jpeg") top no-repeat;
     padding: 30px 50px;
     color: whitesmoke;
     text-shadow: 3px 3px 14px rgba(0, 0, 0, 1);
 }
 
-main{
+main {
     min-height: 500px;
     padding-top: 15px;
     width: 100%;
@@ -41,98 +42,176 @@ main{
     flex-direction: column;
     align-items: center;
     gap: 5px;
+    position: relative;
 }
 
-footer{
+footer {
     width: 100%;
     padding: 30px 10px;
-    padding-top : 30px;
+    padding-top: 30px;
     font-size: 12px;
     background-color: rgba(200, 200, 200, 0.75);
 }
 
-h1,h2,h3{
+h1,
+h2,
+h3 {
     text-align: center;
 }
 
-a{
-    color: blue;    
+a {
+    color: blue;
 }
 
-header a{
+header a {
     text-decoration: none;
     color: whitesmoke;
 }
 
-header img{
-    top :50px;
+header img {
+    top: 50px;
 }
 
-button{
+#ButtonContainer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+button {
     padding: 10px 15px;
     border-radius: 5px;
-    border: 1px solid black;
+    border: 1px solid whitesmoke;
+    box-sizing: border-box;
+    font-weight: 400;
 }
 
-button.selected{
-    background-color: darkslategray;
+button.selected {
+    background-color: rgb(99, 157, 249);
     color: aliceblue;
+    font-weight: 600;
 }
+
 
 main input {
     padding: 5px 10px;
     border-radius: 3px;
     border: 1px solid black;
+    color: rgb(99, 157, 249);
+    font-size: 1.1rem;
+    border: 2px solid rgb(99, 157, 249);
 }
 
-main input:focus{
-    border: 1px solid rgb(99, 157, 249);
+main input::placeholder {
+    color: rgba(99, 157, 249, 0.5);
+}
+
+main input:focus {
+    /* border: 1px solid rgb(99, 157, 249); */
     outline: 2px solid rgb(99, 157, 249);
 }
 
-#result_container{
+#searchBarContainer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.previewGroup {
+    width: 238px;
+    max-height: 250px;
+    margin-left: 22px;
+    position: absolute;
+    top: 100px;
+    /*  */
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    /*  */
+    padding: 3px 0px;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid lightgray;
+    color: rgba(0, 0, 0, 0.75);
+    visibility: visible;
+}
+option.previewItem{
+    padding: 12px;
+}
+
+.previewItem:hover{
+    background-color: rgba(99, 157, 249, 0.7);
+}
+
+#result_container {
     border: 1px solid darkgray;
     background-color: white;
     min-width: 80%;
 }
 
-#result_container > h2{
+#result_container>h2 {
     padding: 10px;
 }
 
 
-.resultHeader, .card{
+.resultHeader,
+.card {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.resultHeader{
+.resultHeader {
     padding: 75px 30px;
     justify-content: space-evenly;
     border-bottom: 1px solid lightgray;
 }
 
-.card{
+.card {
     padding: 20px 12px;
 }
 
-.card h3{
+.card h3 {
     text-align: left;
 }
 
-.card:nth-child(odd){
-    background-color: rgb(220,220,220);
+.card:nth-child(odd) {
+    background-color: rgb(220, 220, 220);
 }
-.card:nth-child(even){
+
+.card:nth-child(even) {
     background-color: white;
 }
 
-.right{
+.right {
     padding-left: 35px;
 }
 
-.right img{
+.right img {
     max-width: 125px;
 }
 
+
+/* scrollbar */
+.previewGroup::-webkit-scrollbar {
+    width: 3px;
+    /* width of the entire scrollbar */
+}
+
+.previewGroup::-webkit-scrollbar-track {
+    background: lightgray;
+    ;
+    /* color of the tracking area */
+}
+
+.previewGroup::-webkit-scrollbar-thumb {
+    background-color: black;
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
+    border: 3px solid rgb(99, 157, 249);
+    /* creates padding around scroll thumb */
+}
+
+/* scrollbar */

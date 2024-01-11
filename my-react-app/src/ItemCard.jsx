@@ -7,7 +7,7 @@ function ItemCard({data}) {
             <h3>{data.name}</h3>
         </div>
         <div className="right">
-            <img src={`https://maplestory.io/api/GMS/213/item/${parseInt(data.id)}/icon?resize=1.5`} alt="No image found"></img>
+            <img src={`https://maplestory.io/api/SEA/198/item/${parseInt(data.id)}/icon?resize=1.5`} alt="No image found"></img>
         </div>
       </div>
     )

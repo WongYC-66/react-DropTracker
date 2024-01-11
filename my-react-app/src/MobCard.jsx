@@ -12,7 +12,7 @@ function MobCard({data}) {
             {strArr.map( (x, i) => <p key = {i}>{x}</p> )}
         </div>
         <div className="right">
-            <img src={`https://maplestory.io/api/GMS/213/mob/${data.id}/render/stand`} alt="No image found"></img>
+            <img src={`https://maplestory.io/api/SEA/198/mob/${data.id}/render/stand`} alt="No image found"></img>
         </div>
       </div>
     )

@@ -32,6 +32,8 @@ function App() {
     setQueryItem(result)
   }
 
+ 
+
   // console.log(queryMob)
 
   return (
@@ -42,7 +44,7 @@ function App() {
       </header>
 
       <main>
-        <QueryBox updateQueryMobResult={updateQueryMobResult} updateQueryItemResult={updateQueryItemResult}/>
+        <QueryBox updateQueryMobResult={updateQueryMobResult} updateQueryItemResult={updateQueryItemResult} />
         <ResultContainer queryMob={queryMob} queryItem={queryItem}/>
       </main>
 

@@ -89,7 +89,6 @@ export function mobIdToImgUrl(id) {
 
 export function itemIdToImgUrl(id) {
     // console.log("running itemIdToImgUrl()")
-
     let name = data.data_item[id].name // check if scroll 
     if (name && name.includes("Scroll")) {
         let returnId = null
@@ -102,7 +101,9 @@ export function itemIdToImgUrl(id) {
             "1%": "2049000",
             "Chaos": "2049100", // chaos scroll
             "Miracle" : "2040037", // miracle auf
-            "Auf" : "2040037" // auf
+            "Auf" : "2040037", // auf
+            "to Lion King" : "2030056", //
+            "Fragment" : "4001533" // white scroll fragment 
         })
             .forEach(x => name.includes(x[0]) ? returnId = x[1] : null) // if match text, use that id
         // console.log(returnId)

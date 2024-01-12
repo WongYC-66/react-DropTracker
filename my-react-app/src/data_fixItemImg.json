@@ -10,5 +10,8 @@
     {"2040153": {"region": "GMS", "version" : 104, "id" : 2040108}},
     {"2040214": {"region": "GMS", "version" : 104, "id" : 2040814}},
     {"2040219": {"region": "GMS", "version" : 104, "id" : 2040814}},
-    {"2040224": {"region": "GMS", "version" : 104, "id" : 2040814}}
+    {"2040224": {"region": "GMS", "version" : 104, "id" : 2040814}},
+    {"4031533": {"region": "SEA", "version" : 198, "id" : 5680578}},
+    {"4031532": {"region": "SEA", "version" : 198, "id" : 5680151}},
+    {"2299000": {"region": "SEA", "version" : 198, "id" : 2290049}}
 ]

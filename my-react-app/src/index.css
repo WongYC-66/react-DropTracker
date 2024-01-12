@@ -121,8 +121,11 @@ main input:focus {
 }
 
 #searchBarContainer svg:hover,
-.resultHeader img:hover {
+.resultHeader img:hover,
+.right img:hover {
     cursor: pointer;
+    transform: translateY(-2px);
+    transition: all 0.1s ease-in-out;
 }
 
 .previewGroup,

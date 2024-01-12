@@ -117,19 +117,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
     updateQueryItemResult({ id, name, desc, dropTable })
   }
 
-  const queryMaps = (id, data) => {
-    // to return Array of map name [["streetName : mapName"], ["Maple Road : Snail Hunting Ground I"] ]
-    console.log("running queryMaps")
-    let mapList = data.data_MobMap[id]
-    console.log(mapList)
-    mapList = mapList.map(mapId => {
-      let mapInfo = data.data_Map[mapId]
-      let streetName = mapInfo.streetName
-      let mapName = mapInfo.mapName
-      return `${streetName} : ${mapName}`
-    })
-    return mapList
-  }
+  
 
   const randomSearch = () => {
     // for fun :)
@@ -218,5 +206,77 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
     </>
   )
 }
+
+// ---------------- utility-funciton -----------------------
+function queryMaps(id, data){
+  // to return Array of map name [["streetName : mapName"], ["Maple Road : Snail Hunting Ground I"] ]
+  // console.log("running queryMaps")
+  let mapList = data.data_MobMap[id]
+  // console.log(mapList)
+  mapList = mapList.map(mapId => {
+    let mapInfo = data.data_Map[mapId]
+    let streetName = mapInfo.streetName
+    let mapName = mapInfo.mapName
+    return `${streetName} : ${mapName}`
+  })
+  return mapList
+}
+
+
+export function queryItems(id, updateQueryItemResult){
+  // an copy from QueryBox Component above, to be exported to ResultContainer Component
+  const data = JSON.parse(localStorage.getItem("data"));
+  if (!data.data_item[id]) return alert("id not found") // end if not tound
+
+  let name = data.data_item[id].name   // is Consume/Etc/Ins
+  if (!name) name = data.data_item[id] // is Eqp.
+  
+  let desc = data.data_item[id].desc
+  let dropTable = Object.entries(data.data_MB)
+  dropTable = dropTable.filter(x => x[1].includes(id))
+  
+  dropTable = dropTable.map(x => {
+    // x[0] = id of mob
+    return {
+      id: x[0],
+      name: data.data_Mob[parseInt(x[0])]
+    }
+  })
+  // console.log({ id, name, desc, dropTable })
+  updateQueryItemResult({ id, name, desc, dropTable })
+}
+
+
+export const queryMobs = (id, updateQueryMobResult) => {
+  // an copy from QueryBox Component above, to be exported to ResultContainer Component
+  const data = JSON.parse(localStorage.getItem("data"));
+  if (!data.data_Mob[id]) return alert("id not found") // end if not tound
+
+  let name = data.data_Mob[id]
+  let dropTable = data.data_MB[id]
+  dropTable = dropTable.map(x => {
+    let result = data.data_item[parseInt(x)]
+    if (typeof result === "string") {
+      // item isEqp, without description
+      return {
+        id: x,
+        name: result
+      }
+    }
+    else {
+      // item is Use/Consume/Etc with desciption
+      return {
+        id: x,
+        name: result.name,
+        desc: result.desc
+      }
+    }
+
+  })
+  let mapTable = queryMaps(id, data)
+  updateQueryMobResult({ id, name, dropTable, mapTable })
+}
+// ---------------- utility-funciton -----------------------
+
 
 export default QueryBox

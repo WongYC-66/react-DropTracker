@@ -1,4 +1,4 @@
-function ItemCard({data}) {
+function ItemCard({data, handleItemIconClick}) {
     // console.log(data)
     let strArr = [data.desc]
     if(data.desc){
@@ -13,7 +13,10 @@ function ItemCard({data}) {
             {strArr.map( (x, i) => <p key = {i}  dangerouslySetInnerHTML={{ __html: x }}></p> )}
         </div>
         <div className="right">
-            <img src={`https://maplestory.io/api/SEA/198/item/${parseInt(data.id)}/icon?resize=1.5`} alt="No image found"></img>
+            <img src={`https://maplestory.io/api/SEA/198/item/${parseInt(data.id)}/icon?resize=1.5`} 
+            alt="No image found"
+            onClick = {()=>handleItemIconClick(data.id)}
+            ></img>
         </div>
       </div>
     )

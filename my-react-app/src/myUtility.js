@@ -1,7 +1,8 @@
-import data_fixMobImg from './data_fixMobImg.json' 
-import data_fixItemImg from './data_fixItemImg.json' 
+import data_fixMobImg from './data_fixMobImg.json'
+import data_fixItemImg from './data_fixItemImg.json'
 const data_MobIdImg = Object.fromEntries(data_fixMobImg.map(x => [Object.keys(x), Object.values(x)]))
 const data_ItemIdImg = Object.fromEntries(data_fixItemImg.map(x => [Object.keys(x), Object.values(x)]))
+const data = JSON.parse(localStorage.getItem("data"));
 
 // ---------------- utility-funciton -----------------------
 export function queryMaps(id, data) {
@@ -77,24 +78,41 @@ export const queryMobs = (id, updateQueryMobResult) => {
 
 export function mobIdToImgUrl(id) {
     // console.log(data_MobIdImg)
-    console.log("running MobIdToImgUrl()")
+    // console.log("running MobIdToImgUrl()")
     // console.log(id)
     let d = data_MobIdImg[id]
-    if(d === undefined) return `https://maplestory.io/api/SEA/198/mob/${id}/render/stand`
+    if (d === undefined) return `https://maplestory.io/api/SEA/198/mob/${id}/render/stand`
     d = d[0]
-    console.log(d)
+    // console.log(d)
     return `https://maplestory.io/api/${d.region}/${d.version}/mob/${id}/render/${d.animation}`
 }
 
 export function itemIdToImgUrl(id) {
-    // console.log(data_MobIdImg)
     // console.log("running itemIdToImgUrl()")
+
+    let name = data.data_item[id].name // check if scroll 
+    if (name && name.includes("Scroll")) {
+        let returnId = null
+        Object.entries({
+            "100%": "2041300",
+            "70%": "2040814",
+            "60%": "2044501",
+            "30%": "2040108",
+            "10%": "2040200",
+            "1%": "2049000",
+            "Chaos": "2049100", // chaos scroll
+            "Miracle" : "2040037", // miracle auf
+            "Auf" : "2040037" // auf
+        })
+            .forEach(x => name.includes(x[0]) ? returnId = x[1] : null) // if match text, use that id
+        // console.log(returnId)
+        return `https://maplestory.io/api/SEA/198/item/${returnId}/icon?resize=1.5`
+    }
+
+    // if not scroll, check against data_fixItemImg
     let d = data_ItemIdImg[id]
-    // console.log(d)
-    if(d === undefined) return `https://maplestory.io/api/SEA/198/item/${id}/icon?resize=1.5`
-    d = d[0]
-    // console.log(d)
-    return `https://maplestory.io/api/${d.region}/${d.version}/item/${d.id || id}/icon?resize=1.5`
+    if (d === undefined) return `https://maplestory.io/api/SEA/198/item/${id}/icon?resize=1.5` // not in data list, use default.
+    return `https://maplestory.io/api/${d[0].region}/${d[0].version}/item/${d[0].id || id}/icon?resize=1.5` // in data list, use that
 }
 
 // ---------------- utility-funciton -----------------------

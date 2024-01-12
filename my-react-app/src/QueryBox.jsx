@@ -63,6 +63,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
   }
 
   const queryMobs = (id) => {
+    console.log(id)
     // from Mob Id, find the item it drops
     const data = JSON.parse(localStorage.getItem("data"));
     if (!data.data_Mob[id]) return alert("id not found") // end if not tound
@@ -94,6 +95,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
   }
 
   const queryItems = (id) => {
+    console.log(id)
     // from Item Id, find the mob that drops it
     const data = JSON.parse(localStorage.getItem("data"));
     if (!data.data_item[id]) return alert("id not found") // end if not tound
@@ -215,10 +217,12 @@ function queryMaps(id, data){
   // console.log(mapList)
   mapList = mapList.map(mapId => {
     let mapInfo = data.data_Map[mapId]
+    if(mapInfo === undefined) return ""// if undefined , format to empty string
     let streetName = mapInfo.streetName
     let mapName = mapInfo.mapName
     return `${streetName} : ${mapName}`
-  })
+  }).filter(x => x) // filter out empty string
+  console.log(mapList)
   return mapList
 }
 

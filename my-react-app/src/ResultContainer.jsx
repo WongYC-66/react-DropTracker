@@ -54,8 +54,8 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
             {showMap && (<div className='mapDiv'>
               {queryMob.mapTable.map((x, i) => <a href={"https://bbb.hidden-street.net/map/mini-map/" + x.toLowerCase().replaceAll(/ :? */g, '-')}
                 key={i}
-                target="_blank">{x}
-              </a>)}
+                target="_blank" 
+                dangerouslySetInnerHTML={{ __html: x }}></a>)}
             </div>)}
           </div>
           <h2> Items That This Mob Drops: </h2>

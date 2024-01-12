@@ -1,3 +1,5 @@
+import { MobIdToImgUrl } from './myUtility.js'
+
 function MobCard({ data, handleMobIconClick }) {
   // console.log(data)
 
@@ -7,7 +9,7 @@ function MobCard({ data, handleMobIconClick }) {
         <h3>{data.name}</h3>
       </div>
       <div className="right">
-        <img src={`https://maplestory.io/api/SEA/198/mob/${data.id}/render/stand`}
+        <img src={MobIdToImgUrl(data.id)}
           alt="No image found"
           onClick={() => handleMobIconClick(data.id)}
         ></img>

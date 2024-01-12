@@ -20,8 +20,9 @@ export function MBdataFormatting(obj) {
     const arrayData = obj.root.children
 
     arrayData.forEach(x => {
+        // if(x.attributes.name === "9420518") console.log(inspect(x, { colors: true, depth: Infinity }));
         let mobId = x.attributes.name
-        let dropData = x.children[2].children
+        let dropData = x.children.filter(y => y.attributes.name === "reward")[0].children
         let dropArray = dropData.map(obj => obj.attributes.value)
 
         //write to main

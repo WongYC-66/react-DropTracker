@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ItemCard from './ItemCard.jsx'
 import MobCard from './MobCard.jsx'
-import { queryItems, queryMobs } from './QueryBox.jsx'
+import { queryItems, queryMobs, MobIdToImgUrl } from './myUtility.js'
 
 function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, updateQueryItemResult }) {
   const [showMap, setShowMap] = useState(false)
@@ -47,7 +47,7 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
         <>
           <div className="resultHeader">
             <h1>{queryMob.name}</h1>
-            <img src={`https://maplestory.io/api/SEA/198/mob/${queryMob.id}/render/stand`}
+            <img src={MobIdToImgUrl(queryMob.id)}
               alt="No image found"
               onClick={handleMobHeaderIconClick}
             ></img>
@@ -81,7 +81,7 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
             <>
               <div className="resultHeader">
                 <h1>{queryMob.name}</h1>
-                <img src={`https://maplestory.io/api/SEA/198/mob/${queryMob.id}/render/stand`} alt="No image found"></img>
+                <img src={MobIdToImgUrl(queryMob.id)} alt="No image found"></img>
                 {showMap && (<div className='mapDiv'>
                   {queryMob.mapTable.map((x, i) => <a href={"https://bbb.hidden-street.net/map/mini-map/" + x.toLowerCase().replaceAll(/ :? */g, '-')}
                     key={i}

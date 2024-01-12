@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ItemCard from './ItemCard.jsx'
 import MobCard from './MobCard.jsx'
-import { queryItems, queryMobs, MobIdToImgUrl } from './myUtility.js'
+import { queryItems, queryMobs, mobIdToImgUrl, itemIdToImgUrl } from './myUtility.js'
 
 function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, updateQueryItemResult }) {
   const [showMap, setShowMap] = useState(false)
@@ -47,7 +47,7 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
         <>
           <div className="resultHeader">
             <h1>{queryMob.name}</h1>
-            <img src={MobIdToImgUrl(queryMob.id)}
+            <img src={mobIdToImgUrl(queryMob.id)}
               alt="No image found"
               onClick={handleMobHeaderIconClick}
             ></img>
@@ -70,7 +70,7 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
                 <h1>{queryItem.name}</h1>
                 {strArr.map((x, i) => <p key={i} dangerouslySetInnerHTML={{ __html: x }}></p>)}
               </div>
-              <img src={`https://maplestory.io/api/SEA/198/item/${parseInt(queryItem.id)}/icon?resize=1.5`} alt="No image found"></img>
+              <img src={itemIdToImgUrl(queryItem.id)} alt="No image found"></img>
             </div>
             <h2> Mobs That Drop This Item: </h2>
             <div>
@@ -81,7 +81,7 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
             <>
               <div className="resultHeader">
                 <h1>{queryMob.name}</h1>
-                <img src={MobIdToImgUrl(queryMob.id)} alt="No image found"></img>
+                <img src={mobIdToImgUrl(queryMob.id)} alt="No image found"></img>
                 {showMap && (<div className='mapDiv'>
                   {queryMob.mapTable.map((x, i) => <a href={"https://bbb.hidden-street.net/map/mini-map/" + x.toLowerCase().replaceAll(/ :? */g, '-')}
                     key={i}

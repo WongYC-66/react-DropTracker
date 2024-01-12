@@ -1,3 +1,5 @@
+import { itemIdToImgUrl } from './myUtility.js'
+
 function ItemCard({data, handleItemIconClick}) {
     // console.log(data)
     let strArr = [data.desc]
@@ -13,7 +15,7 @@ function ItemCard({data, handleItemIconClick}) {
             {strArr.map( (x, i) => <p key = {i}  dangerouslySetInnerHTML={{ __html: x }}></p> )}
         </div>
         <div className="right">
-            <img src={`https://maplestory.io/api/SEA/198/item/${parseInt(data.id)}/icon?resize=1.5`} 
+            <img src={itemIdToImgUrl(data.id)} 
             alt="No image found"
             onClick = {()=>handleItemIconClick(data.id)}
             ></img>

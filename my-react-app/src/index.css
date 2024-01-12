@@ -12,17 +12,23 @@ body {
     background: #ffffff url("/ludi.jpg") center center/cover no-repeat;
 }
 
+#container,
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #container {
     margin: auto;
     width: 80vw;
     /* border: 1px solid lightcyan; */
     /*  */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-
+    /*  */
 }
+
+
 
 header {
     width: 100%;
@@ -38,10 +44,8 @@ main {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.75);
     /*  */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 5px;
+    /*  */
     position: relative;
 }
 
@@ -82,7 +86,6 @@ button {
     padding: 10px 15px;
     border-radius: 5px;
     border: 1px solid whitesmoke;
-    box-sizing: border-box;
     font-weight: 400;
 }
 
@@ -117,6 +120,18 @@ main input:focus {
     gap: 5px;
 }
 
+#searchBarContainer svg:hover,
+.resultHeader img:hover {
+    cursor: pointer;
+}
+
+.previewGroup,
+.resultHeader .mapDiv {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
 .previewGroup {
     width: 238px;
     max-height: 350px;
@@ -124,9 +139,6 @@ main input:focus {
     position: absolute;
     top: 100px;
     /*  */
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
     gap: 5px;
     /*  */
     padding: 3px 0px;
@@ -134,7 +146,7 @@ main input:focus {
     border-radius: 5px;
     border: 2px solid lightgray;
     color: rgba(0, 0, 0, 0.75);
-    visibility: visible;
+    /* visibility: visible; */
 }
 
 option.previewItem,
@@ -179,6 +191,15 @@ select.oneOptionOnly {
     max-width: 150px;
 }
 
+.resultHeader .mapDiv {
+    max-height: 150px;
+    max-width: 175px;
+    font-size: 0.6rem;
+    /*  */
+    gap: 13px;
+    /*  */
+}
+
 .card {
     padding: 20px 12px;
 }
@@ -205,18 +226,21 @@ select.oneOptionOnly {
 
 
 /* scrollbar */
-.previewGroup::-webkit-scrollbar {
+.previewGroup::-webkit-scrollbar,
+.mapDiv::-webkit-scrollbar {
     width: 3px;
     /* width of the entire scrollbar */
 }
 
-.previewGroup::-webkit-scrollbar-track {
+.previewGroup::-webkit-scrollbar-track,
+.mapDiv::-webkit-scrollbar-track {
     background: lightgray;
     ;
     /* color of the tracking area */
 }
 
-.previewGroup::-webkit-scrollbar-thumb {
+.previewGroup::-webkit-scrollbar-thumb,
+.mapDiv::-webkit-scrollbar-thumb {
     background-color: black;
     /* color of the scroll thumb */
     border-radius: 20px;

@@ -4,7 +4,7 @@ function ItemCard({data}) {
     if(data.desc){
         strArr = data.desc.split("\\n")
     }
-    console.log(data)
+    // console.log(data)
 
     return (
       <div className="card">

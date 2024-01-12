@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import ItemCard from './ItemCard.jsx'
 import MobCard from './MobCard.jsx'
 
-function ResultContainer({ queryMob = {}, queryItem = {} }) {
+function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, updateQueryItemResult }) {
+  const [ showMap, setShowMap ] = useState(false)
+
   let hasResult = false
   if (queryMob.name) hasResult = true;
 
@@ -15,7 +18,12 @@ function ResultContainer({ queryMob = {}, queryItem = {} }) {
       strArr = queryItem.desc.split("\\n")
     }
   }
-  console.log(queryMob)
+
+  const handleMobIconClick = () => {
+    setShowMap(() => !showMap)
+  }
+
+  // console.log(queryMob)
   // console.log(queryItem)
 
 
@@ -26,7 +34,16 @@ function ResultContainer({ queryMob = {}, queryItem = {} }) {
         <>
           <div className="resultHeader">
             <h1>{queryMob.name}</h1>
-            <img src={`https://maplestory.io/api/SEA/198/mob/${queryMob.id}/render/stand`} alt="No image found"></img>
+            <img src={`https://maplestory.io/api/SEA/198/mob/${queryMob.id}/render/stand`} 
+              alt="No image found" 
+              onClick={handleMobIconClick}
+            ></img>
+            { showMap && (<div className='mapDiv'>
+              {queryMob.mapTable.map((x, i) => <a href={"https://bbb.hidden-street.net/map/mini-map/" + x.toLowerCase().replaceAll(/ :? */g,'-')} 
+                key={i}
+                target="_blank">{x}
+              </a>)}
+            </div>)}
           </div>
           <h2> Items That This Mob Drops: </h2>
           <div>

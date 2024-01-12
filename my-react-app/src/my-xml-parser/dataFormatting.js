@@ -1,10 +1,12 @@
 import util from 'util'
 import { parseItemJSON } from './utility.js';
+var inspect = util.inspect;
 
-export function legacyTextCheck(str){
+
+export function legacyTextCheck(str) {
     // check for '
     str = str.replaceAll("&apos;", "'")
-    
+
     // check for #c
     str = str.replaceAll(/#c(.+)#/g, "<b>$1</b>")
 
@@ -29,12 +31,30 @@ export function MBdataFormatting(obj) {
     return simpleData
 }
 
+export function MBdataFormatting_MapOnly(obj) {
+    // for MonsterBook.img.xml ONLY
+    // Create better data-structure
+    const simpleData = {}
+    const arrayData = obj.root.children
+
+    // const lookingObj = arrayData[0]
+    // console.log(inspect(lookingObj, { colors: true, depth: Infinity }));
+    arrayData.forEach(x => {
+        let mobId = x.attributes.name
+        let mapData = x.children.filter(obj => obj.attributes.name === 'map')[0].children.map(y => y.attributes.value)
+        //write to main
+        simpleData[mobId] = mapData
+    })
+    return simpleData
+}
+
+
 export function MobIdDataFormatting(obj) {
     // for Mob.img.xml ONLY
     // Create better data-structure
     const simpleData = {}
     const arrayData = obj.root.children
- 
+
     arrayData.forEach(x => {
         let mobId = x.attributes.name
         let mobName = x.children[0].attributes.value
@@ -115,6 +135,35 @@ export function InsItemIdDataFormatting(obj) {
     return simpleData
 }
 
+export function MapIdDataFormatting(obj) {
+    // for Map.img.xml ONLY
+    // Create better data-structure
+    const simpleData = {}
+    const arrayData = obj.root.children // array of 15 types map "victoria, ossyria, elin, weddingGL, MasteriaGL, HalloweenGL, jp, etc, singapore, event, Episode1GL, maple, CN, china, thai"
+
+    // const lookingObj = arrayData //
+    // console.log(lookingObj)
+    // console.log(inspect(lookingObj, { colors: true, depth: Infinity }));
+
+    arrayData.forEach(x => {                    // category
+        // console.log(x.attributes.name)
+        let mapCategory = x.attributes.name
+        x.children.forEach(y => {                // map id
+            let mapId = y.attributes.name
+            let newObj = { mapCategory }
+
+            y.children.forEach(z => {            // streetName, mapName, mapDesc
+                let property = z.attributes.name
+                if(property !== "streetName" && property !== "mapName") return // stops if not
+                let propertyValue = legacyTextCheck(z.attributes.value)
+                newObj[property] = propertyValue
+            })
+            simpleData[mapId] = newObj
+        })
+    })
+    // console.log(simpleData)
+    return simpleData
+}
 
 // module.exports = {
 //     MBdataFormatting,

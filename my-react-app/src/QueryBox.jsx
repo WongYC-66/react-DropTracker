@@ -70,9 +70,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
     let name = data.data_Mob[id]
     let dropTable = data.data_MB[id]
     dropTable = dropTable.map(x => {
-      // console.log(x)
       let result = data.data_item[parseInt(x)]
-      console.log(result)
       if (typeof result === "string") {
         // item isEqp, without description
         return {
@@ -90,8 +88,9 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
       }
 
     })
+    let mapTable = queryMaps(id, data)
     clearInput()
-    updateQueryMobResult({ id, name, dropTable })
+    updateQueryMobResult({ id, name, dropTable, mapTable })
   }
 
   const queryItems = (id) => {
@@ -116,6 +115,20 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
     // console.log({ id, name, desc, dropTable })
     clearInput()
     updateQueryItemResult({ id, name, desc, dropTable })
+  }
+
+  const queryMaps = (id, data) => {
+    // to return Array of map name [["streetName : mapName"], ["Maple Road : Snail Hunting Ground I"] ]
+    console.log("running queryMaps")
+    let mapList = data.data_MobMap[id]
+    console.log(mapList)
+    mapList = mapList.map(mapId => {
+      let mapInfo = data.data_Map[mapId]
+      let streetName = mapInfo.streetName
+      let mapName = mapInfo.mapName
+      return `${streetName} : ${mapName}`
+    })
+    return mapList
   }
 
   const randomSearch = () => {

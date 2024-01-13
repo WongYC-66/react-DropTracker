@@ -14,11 +14,19 @@ function ItemCard({ data, handleItemIconClick }) {
     if (data.desc !== undefined) return // defined == Eqp
 
     const fetchEqpData = async () => {
+
+      const fetchParameter = [
+        ['GMS', 64],
+        ['EMS', 82],
+        ['GMS', 107],
+        ['SEA', 198]
+      ]
       // fetch api for eqp data for at least 3 times if fail
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < fetchParameter.length ; i++) {
+
         let x = {};
         try {
-          x = await fetch(`https://maplestory.io/api/GMS/107/item/${data.id}`)
+          x = await fetch(`https://maplestory.io/api/${fetchParameter[i][0]}/${fetchParameter[i][1]}/item/${data.id}`)
           x = await (x.json())
           // return setEqpData(x)
           let nextObj = {
@@ -56,9 +64,9 @@ function ItemCard({ data, handleItemIconClick }) {
           }
           // console.log(nextObj)
           setEqpData(nextObj)
-          return;
+          return;  // no error then end.
         } catch (err) {
-          continue // re fetch 
+          continue // re-fetch if error
         }
       }
     }
@@ -96,23 +104,23 @@ function ItemCard({ data, handleItemIconClick }) {
             </div>
             <li>CATEGORY: {eqpData.subCategory}</li>
             {!!eqpData.attackSpeed && <li>ATTACK SPEED: {attkSpeedToText(eqpData.attackSpeed)} ({eqpData.attackSpeed})</li>}
-            {!!eqpData.incSTR && <li>STR: <b>+{eqpData.incSTR}</b></li>}
-            {!!eqpData.incDEX && <li>DEX: <b>+{eqpData.incDEX}</b></li>}
-            {!!eqpData.incINT && <li>INT: <b>+{eqpData.incINT}</b></li>}
-            {!!eqpData.incLUK && <li>LUK: <b>+{eqpData.incLUK}</b></li>}
+            {!!eqpData.incSTR && <li>STR: <b>+{rangeCalculator(eqpData.incSTR, "")}</b></li>}
+            {!!eqpData.incDEX && <li>DEX: <b>+{rangeCalculator(eqpData.incDEX, "")}</b></li>}
+            {!!eqpData.incINT && <li>INT: <b>+{rangeCalculator(eqpData.incINT, "")}</b></li>}
+            {!!eqpData.incLUK && <li>LUK: <b>+{rangeCalculator(eqpData.incLUK, "")}</b></li>}
             
-            {!!eqpData.incHP && <li>HP: <b>+{eqpData.incHP}</b></li>}
-            {!!eqpData.incMP && <li>MP: <b>+{eqpData.incMP}</b></li>}
-            {!!eqpData.incWATT && <li>WEAPON ATTACK: <b>{eqpData.incWATT}</b></li>}
-            {!!eqpData.incMATT && <li>MAGIC ATTACK: <b>{eqpData.incMATT}</b></li>}
+            {!!eqpData.incHP && <li>HP: <b>+{rangeCalculator(eqpData.incHP, "", 10)}</b></li>}
+            {!!eqpData.incMP && <li>MP: <b>+{rangeCalculator(eqpData.incMP, "", 10)}</b></li>}
+            {!!eqpData.incWATT && <li>WEAPON ATTACK: <b>{rangeCalculator(eqpData.incWATT, "showGodly")}</b></li>}
+            {!!eqpData.incMATT && <li>MAGIC ATTACK: <b>{rangeCalculator(eqpData.incMATT, "showGodly")}</b></li>}
 
-            {!!eqpData.incWDEF && <li>WEAPON DEF: <b>{eqpData.incWDEF}</b></li>}
-            {!!eqpData.incMDEF && <li>MAGIC DEF: <b>{eqpData.incMDEF}</b></li>}
+            {!!eqpData.incWDEF && <li>WEAPON DEF: <b>{rangeCalculator(eqpData.incWDEF, "", 10)}</b></li>}
+            {!!eqpData.incMDEF && <li>MAGIC DEF: <b>{rangeCalculator(eqpData.incMDEF, "", 10)}</b></li>}
 
-            {!!eqpData.incACC && <li>ACCURACY: <b>{eqpData.incACC}</b></li>}
-            {!!eqpData.incEVA && <li>AVOIDABILITY: <b>{eqpData.incEVA}</b></li>}
-            {!!eqpData.incSpeed && <li>SPEED: {eqpData.incSpeed}</li>}
-            {!!eqpData.incJUMP && <li>SPEED: {eqpData.incJUMP}</li>}
+            {!!eqpData.incACC && <li>ACCURACY: <b>{rangeCalculator(eqpData.incACC, "")}</b></li>}
+            {!!eqpData.incEVA && <li>AVOIDABILITY: <b>{rangeCalculator(eqpData.incEVA, "")}</b></li>}
+            {!!eqpData.incSpeed && <li>SPEED: {rangeCalculator(eqpData.incSpeed, "")}</li>}
+            {!!eqpData.incJUMP && <li>SPEED: {rangeCalculator(eqpData.incJUMP, "")}</li>}
             
             <li>NUMBER OF UPGRADES AVAILABLE : <b>{eqpData.slot}</b></li>
 
@@ -152,6 +160,25 @@ function jobReqToHtmlElem(x){
   </>)
   // <p>BEGINNER</p><p>WARRIOR</p><p>MAGICIAN</p><p>BOWMAN</p><p>THIEF</p><p>PIRATE</p>
 
+}
+
+function rangeCalculator(x, type = "", hardCap = 5){
+  // data from https://mapleroyals.com/forum/threads/staff-blog-september-2022.209642/
+  let base = x
+  let M = parseInt(0.10 * base) + 1
+  M = Math.min(M, hardCap)
+
+  const godlyBonus = 5
+  const min = base - M
+  const max = base + M
+
+  const maxWithGodlyBonus = max + godlyBonus
+
+  let returnString = ""
+  type === "showGodly" ? 
+    returnString = (`${min} ~ ${max} or ${maxWithGodlyBonus} (godly)`) :
+    returnString = (`${min} ~ ${max} or ${maxWithGodlyBonus}`)
+  return returnString
 }
 
 export default ItemCard

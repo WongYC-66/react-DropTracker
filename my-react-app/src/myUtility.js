@@ -100,10 +100,10 @@ export function itemIdToImgUrl(id) {
             "10%": "2040200",
             "1%": "2049000",
             "Chaos": "2049100", // chaos scroll
-            "Miracle" : "2040037", // miracle auf
-            "Auf" : "2040037", // auf
-            "to Lion King" : "2030056", //
-            "Fragment" : "4001533" // white scroll fragment 
+            "Miracle": "2040037", // miracle auf
+            "Auf": "2040037", // auf
+            "to Lion King": "2030056", //
+            "Fragment": "4001533" // white scroll fragment 
         })
             .forEach(x => name.includes(x[0]) ? returnId = x[1] : null) // if match text, use that id
         // console.log(returnId)
@@ -114,6 +114,22 @@ export function itemIdToImgUrl(id) {
     let d = data_ItemIdImg[id]
     if (d === undefined) return `https://maplestory.io/api/SEA/198/item/${id}/icon?resize=1.5` // not in data list, use default.
     return `https://maplestory.io/api/${d[0].region}/${d[0].version}/item/${d[0].id || id}/icon?resize=1.5` // in data list, use that
+}
+
+export function attkSpeedToText(x){
+    let text = "not found"
+    const lib = {
+        2: "FASTER",
+        3: "FASTER",
+        4: "FAST",
+        5: "FAST",
+        6: "NORMAL",
+        7: "SLOW",
+        8: "SLOW",
+        9: "SLOWER",
+    }
+    text = lib[x] || text
+    return text;
 }
 
 // ---------------- utility-funciton -----------------------

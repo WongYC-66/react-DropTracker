@@ -76,9 +76,11 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
       let result = data.data_item[parseInt(x)]
       if (typeof result === "string") {
         // item isEqp, without description
+        
         return {
           id: x,
-          name: result
+          name: result,
+          // data : fetch(`https://maplestory.io/api/GMS/64/item/${x}`).then(x => x.json) // test
         }
       }
       else {
@@ -91,6 +93,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
       }
 
     })
+    // console.log(dropTable)
     let mapTable = queryMaps(id, data)
     clearInput()
     updateQueryMobResult({ id, name, dropTable, mapTable })
@@ -113,7 +116,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
       // x[0] = id of mob
       return {
         id: x[0],
-        name: data.data_Mob[parseInt(x[0])]
+        name: data.data_Mob[parseInt(x[0])],
       }
     })
     // console.log({ id, name, desc, dropTable })

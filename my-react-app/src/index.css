@@ -221,12 +221,98 @@ select.oneOptionOnly {
 
 .right {
     padding-left: 35px;
+    position: relative;
 }
 
 .right img {
     max-width: 125px;
 }
 
+.right .itemDetail {
+    position: absolute;
+    width: 250px;
+    min-height: 150px;
+    top: 50%;
+    right: 60%;
+    z-index: 3;
+    /*  */
+    padding: 15px;
+    border: 1px solid black;
+    background-color: rgba(26, 22, 138, 0.75);
+    border-radius: 3px;
+    color: white;
+    font-size: 0.6rem;
+    visibility: hidden;
+}
+
+.right .itemDetail:hover,
+.right img:hover~.itemDetail {
+    visibility: visible;
+}
+
+.itemDetail > h3{
+    padding-left: 10px;
+}
+
+.itemDetail > h3::before,
+.itemDetail li::before {
+    content: "\2022";
+    color: rgb(152, 200, 255);
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: bold;
+    width: 0.5em;
+    margin-left: -0.8em;
+}
+
+.itemDetail .imgNReq {
+    margin-top: 5px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.imgNReq .col-1 {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(211, 211, 211, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 20px 10px 0;
+}
+
+.itemDetail .jobReq {
+    display: flex;
+    gap: 1px;
+    font-size: 0.5rem;
+    border-bottom: 1px solid white;
+    margin-bottom: 5px;
+}
+
+.itemDetail li {
+    list-style: none;
+    padding-left: 10px;
+    margin-bottom: 3px;
+}
+
+.itemDetail li::before {
+    font-size: 0.6rem;
+    width: 1.0em;
+    color: rgba(241, 120, 21, 1.0);
+}
+
+.jobReq>p {
+    margin-bottom: 5px;
+    border-radius: 2px;
+    padding: 1px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: rgba(169, 169, 169, 0.5);
+}
+
+.jobReq p.highlight {
+    color: rgba(241, 120, 21, 0.8);
+    font-weight: 600;
+}
 
 /* scrollbar */
 .previewGroup::-webkit-scrollbar,

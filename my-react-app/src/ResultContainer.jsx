@@ -8,13 +8,12 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
   const [backToTopBtn, setBackToTopBtn] = useState(false)
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      window.scrollY > 100 ?
+    window.addEventListener("scroll", scrollHandler)
+    function scrollHandler(){
+      window.scrollY > 500 ?
         setBackToTopBtn(true) :
         setBackToTopBtn(false)
-    })
-
-
+    }
   }, [])
 
   let hasResult = false

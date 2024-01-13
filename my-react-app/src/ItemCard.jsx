@@ -134,7 +134,7 @@ function ItemCard({ data, handleItemIconClick }) {
 function jobReqToHtmlElem(x){
   const lib = {
     "-1" : [-1],   //'BEGINNER',
-    0 : [-1, 1, 2, 4, 8, 16],    // 'ALL',
+    0 : ["-1", 1, 2, 4, 8, 16],    // 'ALL',
     1 : [1],       // 'WARRIOR'
     2 : [2],       // 'MAGICIAN'
     4 : [4],       // 'BOWMAN'
@@ -149,7 +149,7 @@ function jobReqToHtmlElem(x){
   return(<>
     {
       <>
-        <p className={x.includes(-1) ? "highlight" : null }>BEGINNER</p>
+        <p className={x.includes("-1") ? "highlight" : null }>BEGINNER</p>
         <p className={x.includes(1) ? "highlight" : null }>WARRIOR</p>
         <p className={x.includes(2) ? "highlight" : null }>MAGICIAN</p>
         <p className={x.includes(4) ? "highlight" : null }>BOWMAN</p>

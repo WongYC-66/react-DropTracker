@@ -18,7 +18,7 @@ function ItemCard({ data, handleItemIconClick }) {
       for (let i = 0; i < 3; i++) {
         let x = {};
         try {
-          x = await fetch(`https://maplestory.io/api/GMS/64/item/${data.id}`)
+          x = await fetch(`https://maplestory.io/api/GMS/107/item/${data.id}`)
           x = await (x.json())
           // return setEqpData(x)
           let nextObj = {
@@ -88,7 +88,7 @@ function ItemCard({ data, handleItemIconClick }) {
                 <p>REQ DEX : {eqpData.reqDEX}</p>
                 <p>REQ INT : {eqpData.reqINT}</p>
                 <p>REQ LUK : {eqpData.reqLUK}</p>
-                <p>REQ FAM : {eqpData.reqFAME}</p>
+                <p>REQ FAM : {eqpData.reqFAME || '-'}</p>
               </div>
             </div>
             <div className='jobReq'>
@@ -99,7 +99,7 @@ function ItemCard({ data, handleItemIconClick }) {
             {!!eqpData.incSTR && <li>STR: <b>+{eqpData.incSTR}</b></li>}
             {!!eqpData.incDEX && <li>DEX: <b>+{eqpData.incDEX}</b></li>}
             {!!eqpData.incINT && <li>INT: <b>+{eqpData.incINT}</b></li>}
-            {!!eqpData.incLUK && <li>STR: <b>+{eqpData.incLUK}</b></li>}
+            {!!eqpData.incLUK && <li>LUK: <b>+{eqpData.incLUK}</b></li>}
             
             {!!eqpData.incHP && <li>HP: <b>+{eqpData.incHP}</b></li>}
             {!!eqpData.incMP && <li>MP: <b>+{eqpData.incMP}</b></li>}

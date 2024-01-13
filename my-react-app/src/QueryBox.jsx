@@ -59,7 +59,14 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
   const queryAndUpdate = (event) => {
     if (event.key !== "Enter") return; // only trigger when Enter event
     // --- unnecessary troll ---
-    if (input.includes("waifu")) return alert('Looking for waifu ? Try tinder~')
+    if (input.includes("waifu")) return (() => {
+      alert('Looking for waifu ? Have you tried Tinder? oh wait, found for ya')
+      window.open("", "MsgWindow", "width=400,height=400")
+        .document.write(`
+          <h1>Hi Here is your waifu</h1>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/330px-Cat_November_2010-1a.jpg"></img>
+        `)
+    })()
     // --- unnecessary troll ---
     if (selected === "Mobs" && searchDropDown.data.length === 1) return queryMobs(searchDropDown.data[0][0])
     if (selected === "Items" && searchDropDown.data.length === 1) return queryItems(searchDropDown.data[0][0])

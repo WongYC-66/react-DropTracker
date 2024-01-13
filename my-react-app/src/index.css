@@ -129,6 +129,7 @@ main input:focus {
 }
 
 .previewGroup,
+#result_container,
 .resultHeader .mapDiv {
     overflow-y: scroll;
     display: flex;
@@ -166,6 +167,8 @@ select.oneOptionOnly {
 }
 
 #result_container {
+    overflow-y:inherit;
+    /*  */
     border: 1px solid darkgray;
     background-color: white;
     min-width: 80%;
@@ -339,3 +342,18 @@ select.oneOptionOnly {
 }
 
 /* scrollbar */
+
+/* back to top button */
+button#backToTop{
+    position: sticky;
+    bottom: 0px;
+    width: 50%;
+    margin: auto;
+    border: none;
+    /*  */
+    background-color: gray;
+    color: #ffffff;
+    font-weight: 700
+    
+}
+/* back to top button */

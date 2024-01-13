@@ -132,11 +132,13 @@ function ItemCard({ data, handleItemIconClick }) {
 }
 
 function jobReqToHtmlElem(x){
+  // console.log(x)
   const lib = {
     "-1" : [-1],   //'BEGINNER',
     0 : ["-1", 1, 2, 4, 8, 16],    // 'ALL',
     1 : [1],       // 'WARRIOR'
     2 : [2],       // 'MAGICIAN'
+    3 : [1, 2] ,                   // ['WARRIOR','MAGICIAN'], 
     4 : [4],       // 'BOWMAN'
     8 : [8],       // 'THIEF',
     9 : [1, 8],                 // ['WARRIOR','THIEF'],
@@ -144,7 +146,8 @@ function jobReqToHtmlElem(x){
     16 : [16]      // 'PIRATE',
   }
 
-  x = lib[x]
+  x = lib[x] || [16]
+  // console.log(`${x} after lib`)
   
   return(<>
     {

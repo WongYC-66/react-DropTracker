@@ -58,6 +58,9 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
 
   const queryAndUpdate = (event) => {
     if (event.key !== "Enter") return; // only trigger when Enter event
+    // --- unnecessary troll ---
+    if (input.includes("waifu")) return alert('Looking for waifu ? Try tinder~')
+    // --- unnecessary troll ---
     if (selected === "Mobs" && searchDropDown.data.length === 1) return queryMobs(searchDropDown.data[0][0])
     if (selected === "Items" && searchDropDown.data.length === 1) return queryItems(searchDropDown.data[0][0])
     if (selected === "Mobs") return queryMobs(event.target.value);

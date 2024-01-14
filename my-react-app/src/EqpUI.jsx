@@ -82,7 +82,7 @@ function EqpUI({ data }) {
 
     return (
         <>
-            {!isEquip ? <> </> :
+            {!isEquip ? <></> :
                 isLoading ? <span className="loader"></span> :
                     eqpData.overallCategory !== "EQUIP" ? <span>no info</span> :
 

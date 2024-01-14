@@ -162,7 +162,7 @@ select.previewGroup {
     border-bottom: 1px solid #DDD;
 }
 
-select.previewGroup{
+select.previewGroup {
     padding-top: 14px;
 }
 
@@ -172,7 +172,7 @@ select.oneOptionOnly {
 }
 
 #result_container {
-    overflow-y:inherit;
+    overflow-y: inherit;
     /*  */
     border: 1px solid darkgray;
     background-color: white;
@@ -237,7 +237,7 @@ select.oneOptionOnly {
     max-width: 125px;
 }
 
-.resultHeader > .itemDetail,
+.resultHeader>.itemDetail,
 .right .itemDetail {
     position: absolute;
     width: 250px;
@@ -255,7 +255,7 @@ select.oneOptionOnly {
     visibility: hidden;
 }
 
-.resultHeader > .itemDetail{
+.resultHeader>.itemDetail {
     top: 65%;
     right: 0;
 }
@@ -267,15 +267,15 @@ img:hover~.itemDetail {
     visibility: visible;
 }
 
-.itemDetail > h3{
+.itemDetail>h3 {
     padding-left: 10px;
 }
 
-.resultHeader .itemDetail > h3{
+.resultHeader .itemDetail>h3 {
     text-align: left;
 }
 
-.itemDetail > h3::before,
+.itemDetail>h3::before,
 .itemDetail li::before {
     content: "\2022";
     color: rgb(152, 200, 255);
@@ -335,6 +335,27 @@ img:hover~.itemDetail {
     font-weight: 600;
 }
 
+span.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 /* scrollbar */
 .previewGroup::-webkit-scrollbar,
 .mapDiv::-webkit-scrollbar {
@@ -362,7 +383,7 @@ img:hover~.itemDetail {
 /* scrollbar */
 
 /* back to top button */
-button#backToTop{
+button#backToTop {
     position: sticky;
     bottom: 0px;
     width: 50%;
@@ -372,6 +393,6 @@ button#backToTop{
     background-color: gray;
     color: #ffffff;
     font-weight: 700
-    
 }
+
 /* back to top button */

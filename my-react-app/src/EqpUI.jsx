@@ -4,8 +4,14 @@ import { itemIdToImgUrl, attkSpeedToText } from './myUtility.js'
 function EqpUI({ data }) {
     // console.log(data)
     const [eqpData, setEqpData] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
+
+    const isEquip = !data.desc
+    // console.log(data.desc)
+    // console.log(isEquip)
+
     useEffect(() => {
-        if (data.desc !== undefined) return // defined == Eqp
+        if (!isEquip) return  // only fetch info data if is Eqp
 
         const fetchEqpData = async () => {
 
@@ -58,62 +64,67 @@ function EqpUI({ data }) {
                     }
                     // console.log(nextObj)
                     setEqpData(nextObj)
+                    setIsLoading(false)
                     return;  // no error then end.
                 } catch (err) {
                     continue // re-fetch if error
                 }
+
             }
+            setIsLoading(false) // loading fail. done with fetch.
         }
 
         fetchEqpData()
-    }, [])
+    }, [data])
 
     // console.log(data)
     // console.log(eqpData)
 
-
     return (
         <>
-            {eqpData.overallCategory === "EQUIP" &&
-            <div className='itemDetail'>
-                <h3>{eqpData.name}</h3>
-                <div className='imgNReq'>
-                    <div className="col-1"><img src={itemIdToImgUrl(data.id)} alt="No image found"></img></div>
-                    <div className="col-2">
-                        <p>REQ LEV : {eqpData.reqLevel}</p>
-                        <p>REQ STR : {eqpData.reqSTR}</p>
-                        <p>REQ DEX : {eqpData.reqDEX}</p>
-                        <p>REQ INT : {eqpData.reqINT}</p>
-                        <p>REQ LUK : {eqpData.reqLUK}</p>
-                        <p>REQ FAM : {eqpData.reqFAME || '-'}</p>
-                    </div>
-                </div>
-                <div className='jobReq'>
-                    {jobReqToHtmlElem(eqpData.reqJob)}
-                </div>
-                <li>CATEGORY: {eqpData.subCategory}</li>
-                {!!eqpData.attackSpeed && <li>ATTACK SPEED: {attkSpeedToText(eqpData.attackSpeed)} ({eqpData.attackSpeed})</li>}
-                {!!eqpData.incSTR && <li>STR: <b>+{rangeCalculator(eqpData.incSTR, "")}</b></li>}
-                {!!eqpData.incDEX && <li>DEX: <b>+{rangeCalculator(eqpData.incDEX, "")}</b></li>}
-                {!!eqpData.incINT && <li>INT: <b>+{rangeCalculator(eqpData.incINT, "")}</b></li>}
-                {!!eqpData.incLUK && <li>LUK: <b>+{rangeCalculator(eqpData.incLUK, "")}</b></li>}
+            {!isEquip ? <> </> :
+                isLoading ? <span className="loader"></span> :
+                    eqpData.overallCategory !== "EQUIP" ? <span>no info</span> :
 
-                {!!eqpData.incHP && <li>HP: <b>+{rangeCalculator(eqpData.incHP, "", 10)}</b></li>}
-                {!!eqpData.incMP && <li>MP: <b>+{rangeCalculator(eqpData.incMP, "", 10)}</b></li>}
-                {!!eqpData.incWATT && <li>WEAPON ATTACK: <b>{rangeCalculator(eqpData.incWATT, "showGodly")}</b></li>}
-                {!!eqpData.incMATT && <li>MAGIC ATTACK: <b>{rangeCalculator(eqpData.incMATT, "showGodly")}</b></li>}
+                    <div className='itemDetail'>
+                        <h3>{eqpData.name}</h3>
+                        <div className='imgNReq'>
+                            <div className="col-1"><img src={itemIdToImgUrl(data.id)} alt="No image found"></img></div>
+                            <div className="col-2">
+                                <p>REQ LEV : {eqpData.reqLevel}</p>
+                                <p>REQ STR : {eqpData.reqSTR}</p>
+                                <p>REQ DEX : {eqpData.reqDEX}</p>
+                                <p>REQ INT : {eqpData.reqINT}</p>
+                                <p>REQ LUK : {eqpData.reqLUK}</p>
+                                <p>REQ FAM : {eqpData.reqFAME || '-'}</p>
+                            </div>
+                        </div>
+                        <div className='jobReq'>
+                            {jobReqToHtmlElem(eqpData.reqJob)}
+                        </div>
+                        <li>CATEGORY: {eqpData.subCategory}</li>
+                        {!!eqpData.attackSpeed && <li>ATTACK SPEED: {attkSpeedToText(eqpData.attackSpeed)} ({eqpData.attackSpeed})</li>}
+                        {!!eqpData.incSTR && <li>STR: <b>+{rangeCalculator(eqpData.incSTR, "")}</b></li>}
+                        {!!eqpData.incDEX && <li>DEX: <b>+{rangeCalculator(eqpData.incDEX, "")}</b></li>}
+                        {!!eqpData.incINT && <li>INT: <b>+{rangeCalculator(eqpData.incINT, "")}</b></li>}
+                        {!!eqpData.incLUK && <li>LUK: <b>+{rangeCalculator(eqpData.incLUK, "")}</b></li>}
 
-                {!!eqpData.incWDEF && <li>WEAPON DEF: <b>{rangeCalculator(eqpData.incWDEF, "", 10)}</b></li>}
-                {!!eqpData.incMDEF && <li>MAGIC DEF: <b>{rangeCalculator(eqpData.incMDEF, "", 10)}</b></li>}
+                        {!!eqpData.incHP && <li>HP: <b>+{rangeCalculator(eqpData.incHP, "", 10)}</b></li>}
+                        {!!eqpData.incMP && <li>MP: <b>+{rangeCalculator(eqpData.incMP, "", 10)}</b></li>}
+                        {!!eqpData.incWATT && <li>WEAPON ATTACK: <b>{rangeCalculator(eqpData.incWATT, "showGodly")}</b></li>}
+                        {!!eqpData.incMATT && <li>MAGIC ATTACK: <b>{rangeCalculator(eqpData.incMATT, "showGodly")}</b></li>}
 
-                {!!eqpData.incACC && <li>ACCURACY: <b>{rangeCalculator(eqpData.incACC, "")}</b></li>}
-                {!!eqpData.incEVA && <li>AVOIDABILITY: <b>{rangeCalculator(eqpData.incEVA, "")}</b></li>}
-                {!!eqpData.incSpeed && <li>SPEED: {rangeCalculator(eqpData.incSpeed, "")}</li>}
-                {!!eqpData.incJUMP && <li>SPEED: {rangeCalculator(eqpData.incJUMP, "")}</li>}
+                        {!!eqpData.incWDEF && <li>WEAPON DEF: <b>{rangeCalculator(eqpData.incWDEF, "", 10)}</b></li>}
+                        {!!eqpData.incMDEF && <li>MAGIC DEF: <b>{rangeCalculator(eqpData.incMDEF, "", 10)}</b></li>}
 
-                <li>NUMBER OF UPGRADES AVAILABLE : <b>{eqpData.slot}</b></li>
+                        {!!eqpData.incACC && <li>ACCURACY: <b>{rangeCalculator(eqpData.incACC, "")}</b></li>}
+                        {!!eqpData.incEVA && <li>AVOIDABILITY: <b>{rangeCalculator(eqpData.incEVA, "")}</b></li>}
+                        {!!eqpData.incSpeed && <li>SPEED: {rangeCalculator(eqpData.incSpeed, "")}</li>}
+                        {!!eqpData.incJUMP && <li>SPEED: {rangeCalculator(eqpData.incJUMP, "")}</li>}
 
-            </div> }
+                        <li>NUMBER OF UPGRADES AVAILABLE : <b>{eqpData.slot}</b></li>
+
+                    </div>}
         </>
     )
 }

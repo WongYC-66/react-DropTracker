@@ -61,8 +61,9 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
     <div id="result_container">
 
       {hasResult && queryMob.name && queryMob.dropTable.length >= 0 ?
-        // show Mob search result
-        <>
+
+      // show Mob search result
+      <>
           <div className="resultHeader">
             <h1>{queryMob.name}</h1>
             <img src={mobIdToImgUrl(queryMob.id)}
@@ -85,6 +86,7 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
               queryMob.dropTable.map(x => <ItemCard key={x.id} data={x} handleItemIconClick={handleItemIconClick} />)}
           </div>
         </>
+
         // show Item search result
         : hasResult && queryItem.name ?
           <>
@@ -94,7 +96,7 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
                 {strArr.map((x, i) => <p key={i} dangerouslySetInnerHTML={{ __html: x }}></p>)}
               </div>
               <img src={itemIdToImgUrl(queryItem.id)} alt="No image found"></img>
-              <EqpUI data={{id : queryItem.id, name : queryItem.name}}/>
+              <EqpUI data={{id : queryItem.id, name : queryItem.name, desc: queryItem.desc}}/>
             </div>
             <h2> Mobs That Drop This Item: </h2>
             <div>

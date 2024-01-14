@@ -13,6 +13,7 @@ function PreviewBox({ data, sendSearchRequest, previewBoxIndex }) {
         <select className="previewGroup" size={data.data.length}
           onChange={e => handleSelection(e.target.value)}
           onSubmit={e => handleSelection(e.target.value)}
+          onClick={e => handleSelection(e.target.value)}
           value={data.data[previewBoxIndex][0]}>
           {data.data.map((x, i) => {
             return <option

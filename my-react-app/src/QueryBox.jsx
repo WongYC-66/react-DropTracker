@@ -174,6 +174,9 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
     selected === "Mobs" ? queryMobs(randomId)
       : selected === "Items" ? queryItems(randomId)
       : null 
+    // selected === "Mobs" ? sendSearchRequest({data:"Mobs", id:randomId})
+    //   : selected === "Items" ? sendSearchRequest({data:"Items", id:randomId})
+    //   : null 
   }
   const toggleSelected = (option) => {
     switch (option) {
@@ -195,7 +198,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
   }
 
   const sendSearchRequest = (data) => {
-    // console.log(data)
+    // console.log("sendsearch req", data)
     setSearchRequest(data)  // {type: data.type , id : x[0]}
     clearInput()
   }

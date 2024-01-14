@@ -142,6 +142,7 @@ main input:focus {
     margin-left: 22px;
     position: absolute;
     top: 100px;
+    z-index: 5;
     /*  */
     gap: 5px;
     /*  */
@@ -188,6 +189,7 @@ select.oneOptionOnly {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .resultHeader {
@@ -235,6 +237,7 @@ select.oneOptionOnly {
     max-width: 125px;
 }
 
+.resultHeader > .itemDetail,
 .right .itemDetail {
     position: absolute;
     width: 250px;
@@ -252,13 +255,24 @@ select.oneOptionOnly {
     visibility: hidden;
 }
 
-.right .itemDetail:hover,
-.right img:hover~.itemDetail {
+.resultHeader > .itemDetail{
+    top: 65%;
+    right: 0;
+}
+
+/* .right .itemDetail:hover, */
+/* .right img:hover~.itemDetail { */
+.itemDetail:hover,
+img:hover~.itemDetail {
     visibility: visible;
 }
 
 .itemDetail > h3{
     padding-left: 10px;
+}
+
+.resultHeader .itemDetail > h3{
+    text-align: left;
 }
 
 .itemDetail > h3::before,

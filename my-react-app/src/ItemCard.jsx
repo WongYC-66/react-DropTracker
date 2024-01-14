@@ -1,78 +1,79 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
 import { itemIdToImgUrl, attkSpeedToText } from './myUtility.js'
+import EqpUI from './EqpUI.jsx'
 
 function ItemCard({ data, handleItemIconClick }) {
   // console.log(data)
-  const [eqpData, setEqpData] = useState({})
+  // const [eqpData, setEqpData] = useState({})
   // console.log(eqpData)
   let strArr = [data.desc]
   if (data.desc) {
     strArr = data.desc.split("\\n")
   }
 
-  useEffect(() => {
-    if (data.desc !== undefined) return // defined == Eqp
+  // useEffect(() => {
+  //   if (data.desc !== undefined) return // defined == Eqp
 
-    const fetchEqpData = async () => {
+  //   const fetchEqpData = async () => {
 
-      const fetchParameter = [
-        ['GMS', 64],
-        ['EMS', 82],
-        ['GMS', 107],
-        ['SEA', 198]
-      ]
-      // fetch api for eqp data for at least 3 times if fail
-      for (let i = 0; i < fetchParameter.length ; i++) {
+  //     const fetchParameter = [
+  //       ['GMS', 64],
+  //       ['EMS', 82],
+  //       ['GMS', 107],
+  //       ['SEA', 198]
+  //     ]
+  //     // fetch api for eqp data for at least 3 times if fail
+  //     for (let i = 0; i < fetchParameter.length ; i++) {
 
-        let x = {};
-        try {
-          x = await fetch(`https://maplestory.io/api/${fetchParameter[i][0]}/${fetchParameter[i][1]}/item/${data.id}`)
-          x = await (x.json())
-          // return setEqpData(x)
-          let nextObj = {
-            name: data.name,
-            id: data.id,
-            overallCategory: x.typeInfo.overallCategory.toUpperCase(),
-            subCategory: x.typeInfo.subCategory.toUpperCase(),
-            reqLevel: x.metaInfo.reqLevelEquip || 0,
-            reqSTR: x.metaInfo.reqSTR || 0,
-            reqDEX: x.metaInfo.reqDEX || 0,
-            reqINT: x.metaInfo.reqINT || 0,
-            reqLUK: x.metaInfo.reqLUK || 0,
-            reqFAME: x.metaInfo.reqPOP || 0,
-            reqJob: x.metaInfo.reqJob || 0,
-            //
-            slot: x.metaInfo.tuc || 0,
-            attackSpeed: x.metaInfo.attackSpeed || 0,
-            incWATT: x.metaInfo.incPAD || 0,
-            incMATT: x.metaInfo.incMAD || 0,
-            incACC: x.metaInfo.incACC || 0,
-            incEVA: x.metaInfo.incEVA || 0,
-            incSpeed: x.metaInfo.incSpeed || 0,
-            incJUMP: x.metaInfo.incJUMP || 0,
-            incWDEF: x.metaInfo.incPDD || 0,
-            incMDEF: x.metaInfo.incMDD || 0,
-            incHP: x.metaInfo.incMHP || 0,
-            incMP: x.metaInfo.incMMP || 0,
-            //
-            incSTR: x.metaInfo.incSTR || 0,
-            incDEX: x.metaInfo.incDEX || 0,
-            incINT: x.metaInfo.incINT || 0,
-            incLUK: x.metaInfo.incLUK || 0,
-            //
+  //       let x = {};
+  //       try {
+  //         x = await fetch(`https://maplestory.io/api/${fetchParameter[i][0]}/${fetchParameter[i][1]}/item/${data.id}`)
+  //         x = await (x.json())
+  //         // return setEqpData(x)
+  //         let nextObj = {
+  //           name: data.name,
+  //           id: data.id,
+  //           overallCategory: x.typeInfo.overallCategory.toUpperCase(),
+  //           subCategory: x.typeInfo.subCategory.toUpperCase(),
+  //           reqLevel: x.metaInfo.reqLevelEquip || 0,
+  //           reqSTR: x.metaInfo.reqSTR || 0,
+  //           reqDEX: x.metaInfo.reqDEX || 0,
+  //           reqINT: x.metaInfo.reqINT || 0,
+  //           reqLUK: x.metaInfo.reqLUK || 0,
+  //           reqFAME: x.metaInfo.reqPOP || 0,
+  //           reqJob: x.metaInfo.reqJob || 0,
+  //           //
+  //           slot: x.metaInfo.tuc || 0,
+  //           attackSpeed: x.metaInfo.attackSpeed || 0,
+  //           incWATT: x.metaInfo.incPAD || 0,
+  //           incMATT: x.metaInfo.incMAD || 0,
+  //           incACC: x.metaInfo.incACC || 0,
+  //           incEVA: x.metaInfo.incEVA || 0,
+  //           incSpeed: x.metaInfo.incSpeed || 0,
+  //           incJUMP: x.metaInfo.incJUMP || 0,
+  //           incWDEF: x.metaInfo.incPDD || 0,
+  //           incMDEF: x.metaInfo.incMDD || 0,
+  //           incHP: x.metaInfo.incMHP || 0,
+  //           incMP: x.metaInfo.incMMP || 0,
+  //           //
+  //           incSTR: x.metaInfo.incSTR || 0,
+  //           incDEX: x.metaInfo.incDEX || 0,
+  //           incINT: x.metaInfo.incINT || 0,
+  //           incLUK: x.metaInfo.incLUK || 0,
+  //           //
 
-          }
-          // console.log(nextObj)
-          setEqpData(nextObj)
-          return;  // no error then end.
-        } catch (err) {
-          continue // re-fetch if error
-        }
-      }
-    }
+  //         }
+  //         // console.log(nextObj)
+  //         setEqpData(nextObj)
+  //         return;  // no error then end.
+  //       } catch (err) {
+  //         continue // re-fetch if error
+  //       }
+  //     }
+  //   }
 
-    fetchEqpData()
-  }, [])
+  //   // fetchEqpData()
+  // }, [])
 
   return (
     <div className="card">
@@ -85,7 +86,10 @@ function ItemCard({ data, handleItemIconClick }) {
           alt="No image found"
           onClick={() => handleItemIconClick(data.id)}
         ></img>
-        {eqpData.overallCategory === "EQUIP" && (
+        <EqpUI data={data}/>
+
+
+        {/* {eqpData.overallCategory === "EQUIP" && (
           <div className='itemDetail'>
             <h3>{eqpData.name}</h3>
             <div className='imgNReq'>
@@ -125,64 +129,64 @@ function ItemCard({ data, handleItemIconClick }) {
             <li>NUMBER OF UPGRADES AVAILABLE : <b>{eqpData.slot}</b></li>
 
           </div>
-        )}
+        )} */}
       </div>
     </div>
   )
 }
 
-function jobReqToHtmlElem(x){
-  // console.log(x)
-  const lib = {
-    "-1" : [-1],   //'BEGINNER',
-    0 : ["-1", 1, 2, 4, 8, 16],    // 'ALL',
-    1 : [1],       // 'WARRIOR'
-    2 : [2],       // 'MAGICIAN'
-    3 : [1, 2] ,                   // ['WARRIOR','MAGICIAN'], 
-    4 : [4],       // 'BOWMAN'
-    8 : [8],       // 'THIEF',
-    9 : [1, 8],                 // ['WARRIOR','THIEF'],
-    13 : [1, 4, 8],             // ['WARRIOR','BOWMAN', 'THIEF'],
-    16 : [16]      // 'PIRATE',
-  }
+// function jobReqToHtmlElem(x){
+//   // console.log(x)
+//   const lib = {
+//     "-1" : [-1],   //'BEGINNER',
+//     0 : ["-1", 1, 2, 4, 8, 16],    // 'ALL',
+//     1 : [1],       // 'WARRIOR'
+//     2 : [2],       // 'MAGICIAN'
+//     3 : [1, 2] ,                   // ['WARRIOR','MAGICIAN'], 
+//     4 : [4],       // 'BOWMAN'
+//     8 : [8],       // 'THIEF',
+//     9 : [1, 8],                 // ['WARRIOR','THIEF'],
+//     13 : [1, 4, 8],             // ['WARRIOR','BOWMAN', 'THIEF'],
+//     16 : [16]      // 'PIRATE',
+//   }
 
-  x = lib[x] || [16]
-  // console.log(`${x} after lib`)
+//   x = lib[x] || [16]
+//   // console.log(`${x} after lib`)
   
-  return(<>
-    {
-      <>
-        <p className={x.includes("-1") ? "highlight" : null }>BEGINNER</p>
-        <p className={x.includes(1) ? "highlight" : null }>WARRIOR</p>
-        <p className={x.includes(2) ? "highlight" : null }>MAGICIAN</p>
-        <p className={x.includes(4) ? "highlight" : null }>BOWMAN</p>
-        <p className={x.includes(8) ? "highlight" : null }>THIEF</p>
-        <p className={x.includes(16) ? "highlight" : null }>PIRATE</p>
-      </>
-    }
-  </>)
-  // <p>BEGINNER</p><p>WARRIOR</p><p>MAGICIAN</p><p>BOWMAN</p><p>THIEF</p><p>PIRATE</p>
+//   return(<>
+//     {
+//       <>
+//         <p className={x.includes("-1") ? "highlight" : null }>BEGINNER</p>
+//         <p className={x.includes(1) ? "highlight" : null }>WARRIOR</p>
+//         <p className={x.includes(2) ? "highlight" : null }>MAGICIAN</p>
+//         <p className={x.includes(4) ? "highlight" : null }>BOWMAN</p>
+//         <p className={x.includes(8) ? "highlight" : null }>THIEF</p>
+//         <p className={x.includes(16) ? "highlight" : null }>PIRATE</p>
+//       </>
+//     }
+//   </>)
+//   // <p>BEGINNER</p><p>WARRIOR</p><p>MAGICIAN</p><p>BOWMAN</p><p>THIEF</p><p>PIRATE</p>
 
-}
+// }
 
-function rangeCalculator(x, type = "", hardCap = 5){
-  // data from https://mapleroyals.com/forum/threads/staff-blog-september-2022.209642/
-  let base = x
-  let M = parseInt(0.10 * base) + 1
-  M = Math.min(M, hardCap)
+// function rangeCalculator(x, type = "", hardCap = 5){
+//   // data from https://mapleroyals.com/forum/threads/staff-blog-september-2022.209642/
+//   let base = x
+//   let M = parseInt(0.10 * base) + 1
+//   M = Math.min(M, hardCap)
 
-  const godlyBonus = 5
-  const min = base - M
-  const max = base + M
+//   const godlyBonus = 5
+//   const min = base - M
+//   const max = base + M
 
-  const maxWithGodlyBonus = max + godlyBonus
+//   const maxWithGodlyBonus = max + godlyBonus
 
-  let returnString = ""
-  type === "showGodly" ? 
-    returnString = (`${min} ~ ${max} or ${maxWithGodlyBonus} (godly)`) :
-    returnString = (`${min} ~ ${max} or ${maxWithGodlyBonus}`)
-  return returnString
-}
+//   let returnString = ""
+//   type === "showGodly" ? 
+//     returnString = (`${min} ~ ${max} or ${maxWithGodlyBonus} (godly)`) :
+//     returnString = (`${min} ~ ${max} or ${maxWithGodlyBonus}`)
+//   return returnString
+// }
 
 export default ItemCard
 

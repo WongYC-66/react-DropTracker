@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import ItemCard from './ItemCard.jsx'
 import MobCard from './MobCard.jsx'
 import { queryItems, queryMobs, mobIdToImgUrl, itemIdToImgUrl } from './myUtility.js'
+import EqpUI from './EqpUI.jsx'
 
 function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, updateQueryItemResult }) {
   const [showMap, setShowMap] = useState(false)
@@ -9,7 +10,7 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
 
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler)
-    function scrollHandler(){
+    function scrollHandler() {
       window.scrollY > 500 ?
         setBackToTopBtn(true) :
         setBackToTopBtn(false)
@@ -59,7 +60,8 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
   return (
     <div id="result_container">
 
-      {hasResult && queryMob.name && queryMob.dropTable.length >= 1 ?
+      {hasResult && queryMob.name && queryMob.dropTable.length >= 0 ?
+        // show Mob search result
         <>
           <div className="resultHeader">
             <h1>{queryMob.name}</h1>
@@ -76,9 +78,14 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
           </div>
           <h2> Items That This Mob Drops: </h2>
           <div>
-            {queryMob.dropTable.map(x => <ItemCard key={x.id} data={x} handleItemIconClick={handleItemIconClick} />)}
+            {queryMob.dropTable.length < 1 ?
+              // No drop //
+              <p>This mob doesn't drop anything :(</p> :
+              // Has drop //
+              queryMob.dropTable.map(x => <ItemCard key={x.id} data={x} handleItemIconClick={handleItemIconClick} />)}
           </div>
         </>
+        // show Item search result
         : hasResult && queryItem.name ?
           <>
             <div className="resultHeader">
@@ -87,31 +94,16 @@ function ResultContainer({ queryMob = {}, queryItem = {}, updateQueryMobResult, 
                 {strArr.map((x, i) => <p key={i} dangerouslySetInnerHTML={{ __html: x }}></p>)}
               </div>
               <img src={itemIdToImgUrl(queryItem.id)} alt="No image found"></img>
+              <EqpUI data={{id : queryItem.id, name : queryItem.name}}/>
             </div>
             <h2> Mobs That Drop This Item: </h2>
             <div>
               {queryItem.dropTable.map(x => <MobCard key={x.id} data={x} handleMobIconClick={handleMobIconClick} />)}
             </div>
           </>
-          : hasResult && queryMob.name && queryMob.dropTable.length < 1 ?
-            <>
-              <div className="resultHeader">
-                <h1>{queryMob.name}</h1>
-                <img src={mobIdToImgUrl(queryMob.id)} alt="No image found"></img>
-                {showMap && (<div className='mapDiv'>
-                  {queryMob.mapTable.map((x, i) => <a href={"https://bbb.hidden-street.net/map/mini-map/" + x.toLowerCase().replaceAll(/ :? */g, '-')}
-                    key={i}
-                    target="_blank">{x}
-                  </a>)}
-                </div>)}
-              </div>
-              <h2> Items That This Mob Drops: </h2>
-              <div>
-                <p>This mob doesn't drop anything :(</p>
-              </div>
-            </>
-            : <></>
+        : <></>
       }
+
       {backToTopBtn && <button id="backToTop" onClick={scollUp}>Back To Top</button>}
 
     </div>

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 // import viteLogo from '/vite.svg'
 import QueryBox from './QueryBox.jsx'
 import ResultContainer from './ResultContainer.jsx'
+import ColorRangeInput from './ColorRangeInput.jsx'
 //
 
 import data_MB from '../data/data_MB.json'
@@ -39,6 +40,7 @@ function App() {
       <header>
         <a href="#"><h1 >An Unofficial <img width="300px" src="/MR_logo.webp" alt="MapleRoyals"></img>Drop Tracker</h1></a>
         <h3>Game Version : 89 </h3>
+        <ColorRangeInput queryMob={queryMob} queryItem={queryItem}/>
       </header>
 
       <main>

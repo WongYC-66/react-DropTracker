@@ -1,3 +1,7 @@
+:root{
+    --color1:
+}
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -9,7 +13,7 @@ html {
 }
 
 body {
-    background: #ffffff url("/ludi.jpg") center center/cover no-repeat;
+    background: #ffffff url("/ludi.jpg") center / cover no-repeat;
 }
 
 #container,
@@ -32,7 +36,7 @@ main {
 
 header {
     width: 100%;
-    background: #ffffff url("/ship.jpeg") top no-repeat;
+    background: rgba(255,255,255,0.75) url("/ship.jpeg") top no-repeat;
     padding: 30px 50px;
     color: whitesmoke;
     text-shadow: 3px 3px 14px rgba(0, 0, 0, 1);
@@ -399,3 +403,59 @@ button#backToTop {
 }
 
 /* back to top button */
+
+/* color Slider */
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.5;
+    -webkit-transition: .2s;
+    transition: all .2s;
+    /*  */
+    position: fixed;
+    top: 2.5%;
+    right: 2.5%;
+    z-index: 5;
+  }
+  
+  .slider:hover {
+    opacity: 1;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4463ff;
+    cursor: pointer;
+  }
+
+/* color Slider */
+
+.bgColorGroup1{
+    --color: #1e90ff;
+}
+
+.bgColorGroup2{
+    --color: #1e90ff;
+}
+
+.bgColorGroup3{
+    --color: #1e90ff;
+}
+
+.colorGroup4{
+    --color: #1e90ff;
+}
+
+.colorGroup5{
+    --color: #1e90ff;
+}
+

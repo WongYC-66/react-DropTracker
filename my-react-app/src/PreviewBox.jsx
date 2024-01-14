@@ -1,5 +1,5 @@
 function PreviewBox({ data, sendSearchRequest, previewBoxIndex }) {
-  console.log(previewBoxIndex)
+  // console.log(previewBoxIndex)
 
   function handleSelection(id) {
     // console.log(id)

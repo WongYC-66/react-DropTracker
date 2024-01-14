@@ -83,7 +83,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
   const handleArrowKeySelection = (event) => {
     // handle arrow key UP and DOWN only
     if(event.key !== "ArrowUp" &&  event.key !== "ArrowDown" ) return
-    if(searchDropDown.data.length <= 0) return
+    if(Object.keys(searchDropDown).length <= 0) return // if no dropdown, do nothing
     if(event.key !== "ArrowUp") return setPreviewBoxIndex(Math.min(previewBoxIndex + 1, searchDropDown.data.length - 1))
     if(event.key !== "ArrowDown") return setPreviewBoxIndex(Math.max(previewBoxIndex - 1, 0))
   }

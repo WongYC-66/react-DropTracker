@@ -9,6 +9,11 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
   const [input, setInput] = useState('')
   const [searchDropDown, setSearchDropDown] = useState({})
   const [searchRequest, setSearchRequest] = useState({})
+  const [previewBoxIndex, setPreviewBoxIndex] = useState(0)
+
+  useEffect(()=>{
+    setPreviewBoxIndex(0)
+  }, [searchDropDown])
 
   useEffect(() => {
     if (searchRequest.type === 'Mobs') {
@@ -54,6 +59,7 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
     })
     selected === 'Mobs' ? data = { type: 'Mobs', data: data } : data = { type: 'Items', data: data }
     setSearchDropDown(data) // update searchable dropdown
+    setPreviewBoxIndex(0) // update select index to 0 or error
   }, [input]) 
 
   const queryAndUpdate = (event) => {
@@ -68,10 +74,18 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
         `)
     })()
     // --- unnecessary troll ---
-    if (selected === "Mobs" && searchDropDown.data.length === 1) return queryMobs(searchDropDown.data[0][0])
-    if (selected === "Items" && searchDropDown.data.length === 1) return queryItems(searchDropDown.data[0][0])
+    if (selected === "Mobs" && searchDropDown.data.length >= 1) return queryMobs(searchDropDown.data[previewBoxIndex][0])
+    if (selected === "Items" && searchDropDown.data.length >= 1) return queryItems(searchDropDown.data[previewBoxIndex][0])
     if (selected === "Mobs") return queryMobs(event.target.value);
     if (selected === "Items") return queryItems(event.target.value);
+  }
+
+  const handleArrowKeySelection = (event) => {
+    // handle arrow key UP and DOWN only
+    if(event.key !== "ArrowUp" &&  event.key !== "ArrowDown" ) return
+    if(searchDropDown.data.length <= 0) return
+    if(event.key !== "ArrowUp") return setPreviewBoxIndex(Math.min(previewBoxIndex + 1, searchDropDown.data.length - 1))
+    if(event.key !== "ArrowDown") return setPreviewBoxIndex(Math.max(previewBoxIndex - 1, 0))
   }
 
   const queryMobs = (id) => {
@@ -133,8 +147,6 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
     clearInput()
     updateQueryItemResult({ id, name, desc, dropTable })
   }
-
-  
 
   const randomSearch = () => {
     // for fun :)
@@ -215,11 +227,12 @@ function QueryBox({ updateQueryMobResult, updateQueryItemResult }) {
       <div id="searchBarContainer">
         <FaSearch id="search-icon" style={{ color: "rgb(109, 147, 255)" }}  onClick={() => randomSearch()}/>
         <input value={input}
-          onChange={(e) => handleInputChange(e.target.value)}
-          onKeyPress={() => queryAndUpdate(event)}
+          onInput={(e) => handleInputChange(e.target.value)}
+          onKeyPress={(e) => queryAndUpdate(e)}
+          onKeyDown={(e) => handleArrowKeySelection(e)}
           placeholder="Search for a mob or item" />
       </div>
-      <PreviewBox data={searchDropDown} sendSearchRequest={sendSearchRequest} />
+      <PreviewBox data={searchDropDown} sendSearchRequest={sendSearchRequest} previewBoxIndex={previewBoxIndex} />
     </>
   )
 }

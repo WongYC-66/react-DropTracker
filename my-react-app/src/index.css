@@ -161,6 +161,10 @@ select.previewGroup {
     border-bottom: 1px solid #DDD;
 }
 
+select.previewGroup{
+    padding-top: 14px;
+}
+
 .previewItem:hover,
 select.oneOptionOnly {
     background-color: rgba(99, 157, 249, 0.7);

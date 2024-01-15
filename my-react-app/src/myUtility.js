@@ -2,7 +2,7 @@ import data_fixMobImg from './data_fixMobImg.json'
 import data_fixItemImg from './data_fixItemImg.json'
 const data_MobIdImg = Object.fromEntries(data_fixMobImg.map(x => [Object.keys(x), Object.values(x)]))
 const data_ItemIdImg = Object.fromEntries(data_fixItemImg.map(x => [Object.keys(x), Object.values(x)]))
-const data = JSON.parse(localStorage.getItem("data"));
+let data = JSON.parse(localStorage.getItem("data"));
 
 // ---------------- utility-funciton -----------------------
 export function queryMaps(id, data) {
@@ -89,6 +89,7 @@ export function mobIdToImgUrl(id) {
 
 export function itemIdToImgUrl(id) {
     // console.log("running itemIdToImgUrl()")
+    if(! data) data = JSON.parse(localStorage.getItem("data")); // to fix first-loading bug
     let name = data.data_item[id].name // check if scroll 
     if (name && name.includes("Scroll")) {
         let returnId = null

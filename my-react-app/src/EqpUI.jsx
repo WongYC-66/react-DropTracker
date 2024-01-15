@@ -12,7 +12,7 @@ function EqpUI({ data }) {
 
     useEffect(() => {
         if (!isEquip) return  // only fetch info data if is Eqp
-
+        
         const fetchEqpData = async () => {
 
             const fetchParameter = [
@@ -67,6 +67,7 @@ function EqpUI({ data }) {
                     setIsLoading(false)
                     return;  // no error then end.
                 } catch (err) {
+                    setEqpData({})
                     continue // re-fetch if error
                 }
 

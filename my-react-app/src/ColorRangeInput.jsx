@@ -5,7 +5,7 @@ function ColorRangeInput({ queryMob, queryItem }) {
   const [colorTheme, setColorTheme] = useState("light")
 
   useEffect(() => {
-    console.log(colorTheme)
+    // console.log(colorTheme)
 
     let d = document
     let w = window
@@ -115,7 +115,7 @@ function ColorRangeInput({ queryMob, queryItem }) {
 
 
   const handleInputChange = (value) => {
-    console.log(value)
+    // console.log(value)
     switch (value) {
       case "0": // dayMode
         return setColorTheme('light')

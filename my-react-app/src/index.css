@@ -343,7 +343,7 @@ img:hover~.itemDetail {
 span.loader {
     width: 48px;
     height: 48px;
-    border: 5px solid #FFF;
+    border: 5px solid #e7e7e7;
     border-bottom-color: transparent;
     border-radius: 50%;
     display: inline-block;
@@ -438,24 +438,3 @@ button#backToTop {
   }
 
 /* color Slider */
-
-.bgColorGroup1{
-    --color: #1e90ff;
-}
-
-.bgColorGroup2{
-    --color: #1e90ff;
-}
-
-.bgColorGroup3{
-    --color: #1e90ff;
-}
-
-.colorGroup4{
-    --color: #1e90ff;
-}
-
-.colorGroup5{
-    --color: #1e90ff;
-}
-

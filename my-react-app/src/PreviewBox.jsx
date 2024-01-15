@@ -5,15 +5,20 @@ function PreviewBox({ data, sendSearchRequest, previewBoxIndex }) {
     // console.log(id)
     sendSearchRequest({ type: data.type, id: id })
   }
+
+  function handleClickEvent(id) {
+    // if only 1 option, click <select> tag is Search 
+    if(Object.keys(data).length >= 1 && data.data.length === 1) return sendSearchRequest({ type: data.type, id: id })
+  }
   // console.log(data)
 
   return (
     <>
       {(Object.keys(data).length >= 1 && data.data.length >= 1) && (
         <select className="previewGroup" size={data.data.length}
-          onChange={e => handleSelection(e.target.value)}
-          onSubmit={e => handleSelection(e.target.value)}
-          onClick={e => handleSelection(e.target.value)}
+          // onChange={e => handleSelection(e.target.value)}
+          onClick={e => handleClickEvent(e.target.value)}
+          onInput={e => handleSelection(e.target.value)}
           value={data.data[previewBoxIndex][0]}>
           {data.data.map((x, i) => {
             return <option

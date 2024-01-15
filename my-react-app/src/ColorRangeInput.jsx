@@ -5,7 +5,7 @@ function ColorRangeInput({ queryMob, queryItem }) {
 
   useEffect(() => {
     let previousColorTheme = JSON.parse(localStorage.getItem("colorThemeCode"));
-    previousColorTheme = parseInt(previousColorTheme)
+    previousColorTheme = previousColorTheme ? parseInt(previousColorTheme) : 0
     setColorThemeCode(previousColorTheme)
   }, [])
 

@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react"
-
 function ColorRangeInput({ queryMob, queryItem }) {
-
-  const [colorTheme, setColorTheme] = useState("light")
+  
+  const [colorThemeCode, setColorThemeCode] = useState(0)
 
   useEffect(() => {
-    // console.log(colorTheme)
+    let previousColorTheme = JSON.parse(localStorage.getItem("colorThemeCode"));
+    previousColorTheme = parseInt(previousColorTheme)
+    setColorThemeCode(previousColorTheme)
+  }, [])
 
+  useEffect(() => {
     let d = document
     let w = window
     let x = null
-
-    if (colorTheme === "light") {
+    if (colorThemeCode === 0) {
+      // light mode
       let color1 = `rgba(200, 200, 200, 0.75)`
       let color2 = `rgb(220, 220, 220)`
       let color3 = `rgb(255, 255, 255, 0.75)`
@@ -47,7 +50,8 @@ function ColorRangeInput({ queryMob, queryItem }) {
       })
       return
 
-    } else if (colorTheme === "dark") {
+    } else if (colorThemeCode === 1) {
+      // dark mode
       let color1 = `rgb(21,32,43)`
       let color2 = `rgb(25,39,52)`
       let color3 = `rgb(34,48,60)`
@@ -78,7 +82,8 @@ function ColorRangeInput({ queryMob, queryItem }) {
         if (x.classList.contains("selected")) x.style.backgroundColor = color5
       })
 
-    } else if (colorTheme === "pink") {
+    } else if (colorThemeCode === 2) {
+      // pink mode
       let color1 = `rgb(216,143,225)`
       let color2 = `rgb(240,170,227)`
       let color3 = `rgb(255,179,237)`
@@ -111,19 +116,13 @@ function ColorRangeInput({ queryMob, queryItem }) {
 
     }
 
-  }, [colorTheme, queryMob, queryItem])
+  }, [colorThemeCode, queryMob, queryItem])
 
 
   const handleInputChange = (value) => {
     // console.log(value)
-    switch (value) {
-      case "0": // dayMode
-        return setColorTheme('light')
-      case "1": // nightMode
-        return setColorTheme('dark')
-      case "2": // pinkMode
-        return setColorTheme('pink')
-    }
+    localStorage.setItem("colorThemeCode", JSON.stringify(value));
+    setColorThemeCode(parseInt(value))
   }
 
   return (
@@ -135,7 +134,7 @@ function ColorRangeInput({ queryMob, queryItem }) {
         className="slider"
         min="0"
         max="2"
-        defaultValue="0"
+        value = {colorThemeCode}
         onInput={(e) => handleInputChange(e.target.value)}
       />
     </div>)

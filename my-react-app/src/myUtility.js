@@ -133,4 +133,9 @@ export function attkSpeedToText(x){
     return text;
 }
 
+export function itemIdToGearStats(x){
+    if(! data) data = JSON.parse(localStorage.getItem("data")); // to fix first-loading bug
+    return data.data_GearStats[x]
+}
+
 // ---------------- utility-funciton -----------------------

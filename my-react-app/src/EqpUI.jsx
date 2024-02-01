@@ -37,7 +37,7 @@ function EqpUI({ data }) {
                 incACC: parseInt(x.incACC) || 0,
                 incEVA: parseInt(x.incEVA) || 0,
                 incSpeed: parseInt(x.incSpeed) || 0,
-                incJUMP: parseInt(x.incJUMP) || 0,
+                incJUMP: parseInt(x.incJump) || 0,
                 incWDEF: parseInt(x.incPDD) || 0,
                 incMDEF: parseInt(x.incMDD) || 0,
                 incHP: parseInt(x.incMHP) || 0,
@@ -99,7 +99,7 @@ function EqpUI({ data }) {
                             {!!eqpData.incACC && <li>ACCURACY: <b>{rangeCalculator(eqpData.incACC, "")}</b></li>}
                             {!!eqpData.incEVA && <li>AVOIDABILITY: <b>{rangeCalculator(eqpData.incEVA, "")}</b></li>}
                             {!!eqpData.incSpeed && <li>SPEED: {rangeCalculator(eqpData.incSpeed, "")}</li>}
-                            {!!eqpData.incJUMP && <li>SPEED: {rangeCalculator(eqpData.incJUMP, "")}</li>}
+                            {!!eqpData.incJUMP && <li>JUMP: {rangeCalculator(eqpData.incJUMP, "")}</li>}
 
                             <li>NUMBER OF UPGRADES AVAILABLE : <b>{eqpData.slot}</b></li>
 

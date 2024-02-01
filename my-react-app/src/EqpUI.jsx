@@ -15,7 +15,7 @@ function EqpUI({ data }) {
 
         const fetchEqpData = () => {
             let x = itemIdToGearStats(data.id)
-            console.log(x)
+            // console.log(x)
             let nextObj = {
                 name: data.name,
                 id: data.id,

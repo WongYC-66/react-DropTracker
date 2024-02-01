@@ -19,8 +19,9 @@ function EqpUI({ data }) {
             let nextObj = {
                 name: data.name,
                 id: data.id,
-                // overallCategory: x.typeInfo.overallCategory.toUpperCase(),
-                subCategory: x.afterImage,
+                overallCategory: x.overallCategory.toUpperCase(),
+                category: x.category.toUpperCase(),
+                subCategory: x.subCategory.toUpperCase(),
                 reqLevel: parseInt(x.reqLevel) || 0,
                 reqSTR: parseInt(x.reqSTR) || 0,
                 reqDEX: parseInt(x.reqDEX) || 0,
@@ -63,7 +64,7 @@ function EqpUI({ data }) {
         <>
             {!isEquip ? <></> :
                 isLoading ? <span className="loader"></span> :
-
+                    eqpData.overallCategory !== "EQUIP" ? "no info" :
                         <div className='itemDetail'>
                             <h3>{eqpData.name}</h3>
                             <div className='imgNReq'>
